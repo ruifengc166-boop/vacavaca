@@ -1,6 +1,6 @@
 /* Mobile Nav */
 @media (max-width: 768px) {
-  .nav-links, .nav-actions {
+  .nav-links, .nav-actions { display: none;
   
   }
   .nav-toggle {
@@ -245,4 +245,4 @@ button{font-family:var(--font);cursor:pointer;border:none;background:none;color:
 /* Hide login/register buttons */
 .nav-actions { display: none !important; }
 /* Center nav links in remaining space */
-.nav-links { flex: 1; justify-content: center; display: flex; gap: 2px; }
+.nav-links { flex: 1; justify-content: center; gap: 2px; }
