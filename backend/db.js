@@ -7,13 +7,15 @@ function load(n){const p=path.join(DATA_DIR,n+'.json');if(!fs.existsSync(p))retu
 function save(n,d){fs.writeFileSync(path.join(DATA_DIR,n+'.json'),JSON.stringify(d,null,2),'utf-8');}
 
 const users=load('users');
-if(!users.find(u=>u.role==='admin')){
-  const h=crypto.createHash('sha256').update('admin123').digest('hex');
+var adminPw = process.env.ADMIN_PASSWORD;
+if (adminPw && !users.find(u=>u.role==='admin')){
+    var h=crypto.createHash('sha256').update(adminPw).digest('hex');
   users.push({id:999,name:'管理员',email:'admin@vacat.cc',password:h,role:'admin',bio:'',specialty:'',status:'active',contact:'',created_at:new Date().toISOString()});save('users',users);
 }
 const creators=load('creators');
-if(creators.length===0){
-  save('creators',[
+// DISABLED: seed data
+if(false){ // was: if(creators.length===0)
+  save('creators',[//
     {id:1,name:'星辰AI',avatar:'星',level:'super',specialty:'video',status:'active',bio:'专注AI视频创作与品牌视觉设计，第三届瓦卡奖金奖得主',tags:'AI视频,概念设计',works_count:3,likes:2300},
     {id:2,name:'AI梦幻师',avatar:'梦',level:'pro',specialty:'image',status:'active',bio:'原创AI绘画艺术家，擅长中国风AI绘画创作',tags:'AI图像,概念设计',works_count:4,likes:1800},
     {id:3,name:'视界讲述者',avatar:'视',level:'verified',specialty:'video',status:'active',bio:'AI人物故事片专业户，擅长情感史诗类AI短片',tags:'AI视频,短剧',works_count:2,likes:1200},
@@ -26,8 +28,10 @@ if(creators.length===0){
   ]);
 }
 const works=load('works');
-if(works.length===0){
-  save('works',[
+console.log('DB: works loaded, count:', works.length);
+// DISABLED: seed data
+if(false){ // was: if(works.length===0)
+  save('works',[//
     {id:1,creator_id:1,title:'AI重构东方幻境',description:'用AI视频技术重新诠释敦煌壁画中的飞天形象',embed_type:'bilibili',embed_id:'BV1gvJG6qEBq',image_url:'http://i1.hdslb.com/bfs/archive/407e5952ffc113569d.jpg',created_at:'2026-05-10'},
     {id:2,creator_id:1,title:'星河之旅：AI生成短片',description:'完全由AI生成的奇幻星河短片，每一帧都是视觉盛宴',embed_type:'upload',embed_id:'',image_url:'',created_at:'2026-04-20'},
     {id:3,creator_id:1,title:'AI水墨风格实验动画',description:'探索AI技术在传统水墨动画中的应用边界',embed_type:'upload',embed_id:'',image_url:'',created_at:'2026-03-15'},

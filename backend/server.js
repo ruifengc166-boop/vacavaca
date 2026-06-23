@@ -27,27 +27,26 @@ app.use((req, res, next) => {
 const rateLimiter = require('./routes/rate-limit');
 app.use('/api/', rateLimiter({ windowMs: 60000, max: 120 }));
 app.use(express.json());
-app.use(express.static(path.join(__dirname, '..'), { maxAge: 0, etag: true, lastModified: true }));
-app.use('/uploads', express.static(path.join(__dirname, '..', 'uploads'), { maxAge: '1d' }));
-app.use('/assets', express.static(path.join(__dirname, '..', '..', 'assets'), { maxAge: '7d', etag: true }));
-app.use('/apply', express.static(path.join(__dirname, '..', '..', 'vacat_apply_site')));
 app.use('/api', usersRouter);
 app.use('/api/creators', creatorsRouter);
 app.use('/api/works', worksRouter);
 app.use('/api/referrals', referralsRouter);
 app.use('/api', adminRouter);
 app.use('/api/content', contentRouter);
+app.use(express.static(path.join(__dirname, '..'), { maxAge: 0, etag: true, lastModified: true }));
+app.use('/uploads', express.static(path.join(__dirname, '..', 'uploads'), { maxAge: '1d' }));
+app.use('/assets', express.static(path.join(__dirname, '..', '..', 'assets'), { maxAge: '7d', etag: true }));
+app.use('/apply', express.static(path.join(__dirname, '..', 'vacat_apply_site')));
 app.get('*', (req, res) => {
   if (req.path.startsWith('/api/')) return res.status(404).json({ error: 'API endpoint not found' });
   res.sendFile(path.join(__dirname, '..', 'index.html'));
 });
-app.listen(PORT, '0.0.0.0', () => {
 
 // 全局错误处理中间件
 app.use(function(err, req, res, next) {
   console.error("\n[ERROR]", new Date().toISOString(), req.method, req.path);
   console.error(err.stack || err.message || err);
-  res.status(500).json({ error: "\u670d\u52a1\u5668\u5185\u90e8\u9519\u8bef" });
+  res.status(500).json({ error: "服务器内部错误" });
 });
 
 // 请求日志（非静态资源）
@@ -57,8 +56,9 @@ app.use(function(req, res, next) {
   }
   next();
 });
+
+app.listen(PORT, '0.0.0.0', () => {
   console.log('=== AI视觉创作者部落 后端已启动 ===');
   console.log('地址: http://localhost:' + PORT);
   console.log('管理后台: http://localhost:' + PORT + '/admin/');
 });
-

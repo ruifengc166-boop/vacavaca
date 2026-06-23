@@ -12,6 +12,10 @@ if(nav) window.addEventListener('scroll', function(){
 var tg = document.querySelector('.nav-toggle');
 var lk = document.querySelector('.nav-links');
 if(tg && lk) tg.addEventListener('click', function(){lk.classList.toggle('mobile-open');});
+// ===== CLOSE MOBILE MENU ON RESIZE =====
+window.addEventListener('resize', function(){
+    if(window.innerWidth > 768 && lk) lk.classList.remove('mobile-open');
+});
 
 // ===== ACTIVE NAV =====
 var cp = window.location.pathname.split('/').pop() || 'index.html';
@@ -31,11 +35,18 @@ var obs = new IntersectionObserver(function(es){
 document.querySelectorAll('.fade-in').forEach(function(el){obs.observe(el);});
 
 // ===== BILIBILI URL =====
-function biliUrl(bv, auto){
-    if(!bv) return '';
-    var m = bv.match(/BV[0-9A-Za-z]{10,}/);
-    if(m) bv = m[0];
-    return 'https://player.bilibili.com/player.html?bvid=' + bv + (auto ? '&autoplay=1' : '') + '&high_quality=1';
+function videoUrl(id){
+    if(!id) return '';
+    // B站 BV/AV ID -> https://www.bilibili.com/video/BVxxx
+    var m = id.match(/BV[0-9A-Za-z]{10,}/);
+    if(m) return 'https://www.bilibili.com/video/' + m[0];
+    m = id.match(/AV[0-9]+/);
+    if(m) return 'https://www.bilibili.com/video/' + m[0];
+    // 已经是完整URL -> 直接使用
+    if(id.indexOf('http://')===0 || id.indexOf('https://')===0) return id;
+    // 抖音视频ID -> https://www.douyin.com/video/xxx
+    if(id.indexOf('douyin')===0) return 'https://www.douyin.com/video/' + id;
+    return id;
 }
 
 // ===== VIDEO MODAL =====
@@ -49,27 +60,25 @@ window.closeVideoModal = function(){
     modal.classList.remove('open');
     document.getElementById('modalEmbed').innerHTML = '';
 };
-window.openVideoModal = function(bv, title, desc, creator, creatorId){
-    if(!bv) return;
-    var url = biliUrl(bv, true);
+window.openVideoModal = function(id, title, desc, creator, creatorId){
+    if(!id) return;
+    var url = videoUrl(id);
     if(!url) return;
-    document.getElementById('modalEmbed').innerHTML = '<iframe src="'+url+'" allowfullscreen></iframe>';
-    document.getElementById('modalTitle').textContent = title || '';
-    var descHtml = desc || '';
-    if(creator){
-        if(creatorId){
-            descHtml += ' - <a href="creator-profile.html?id='+creatorId+'" target="_blank" style="color:var(--gold);text-decoration:underline">'+creator+'</a>';
-        } else {
-            descHtml += ' - '+creator;
-        }
-    }
-    document.getElementById('modalDesc').innerHTML = descHtml;
-    modal.classList.add('open');
+    window.location.href = url;
 };
 
 // ===== ESC & HASBV =====
 function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
-function hasBV(id){return id && (id.indexOf('BV')===0 || id.indexOf('AV')===0 || id.indexOf('upload')===0 || id.indexOf('bilibili')===0);}
+function hasVideo(id){
+    if(!id) return false;
+    // B站 BV/AV ID
+    if(id.indexOf('BV')===0 || id.indexOf('AV')===0 || id.indexOf('bilibili')===0) return true;
+    // 完整URL（抖音、YouTube、微博等）
+    if(id.indexOf('http://')===0 || id.indexOf('https://')===0) return true;
+    // 抖音视频ID
+    if(id.indexOf('douyin')===0) return true;
+    return false;
+}
 
 // ===== CREATORS DATA =====
 var levelNames = {explorer:"Explorer", dreamer:"Dreamer", creator:"Creator"};
@@ -162,7 +171,7 @@ fetch(API+'/api/works').then(function(r){return r.json()}).then(function(works){
         function handleHeroClick(idx){
             if(idx === centerIdx){
                 var w = heroWorks[idx];
-                if(hasBV(w.embed_id)) openVideoModal(w.embed_id, w.title, w.description, w.creator_name, w.creator_id);
+                if(hasVideo(w.embed_id)) openVideoModal(w.embed_id, w.title, w.description, w.creator_name, w.creator_id);
             } else {
                 centerIdx = idx;
                 renderHeroWorks();
@@ -198,7 +207,7 @@ fetch(API+'/api/works').then(function(r){return r.json()}).then(function(works){
             var awardColors = {"\u91d1\u5956":{bg:"rgba(255,215,0,0.18)",color:"#FFD700"},"\u94f6\u5956":{bg:"rgba(192,192,192,0.18)",color:"#C0C0C0"},"\u94dc\u5956":{bg:"rgba(205,127,50,0.18)",color:"#CD7F32"},"\u4f18\u79c0\u5956":{bg:"rgba(155,89,182,0.18)",color:"#9B59B6"}};
             var ac = awardColors[w.award] || {bg:'rgba(202,254,97,0.15)',color:'var(--gold)'};
             var awardTag = w.award ? '<span class="bilibili-tag" style="background:'+ac.bg+';color:'+ac.color+';margin-left:4px">'+w.award+'</span>' : '';
-            var hasV = hasBV(w.embed_id);
+            var hasV = hasVideo(w.embed_id);
             var thumb = w.image_url ? '<img src="'+w.image_url+'" alt="'+esc(w.title)+'">' : '<img src="'+DEFAULT_THUMB+'" alt="'+esc(w.title)+'" style="width:100%;height:100%;object-fit:cover">';
             var click = hasV ? 'openVideoModal(\''+esc(w.embed_id)+'\',\''+esc(w.title)+'\',\''+esc(w.description)+'\',\''+esc(w.creator_name)+'\',\''+w.creator_id+'\')' : '';
             grid.innerHTML += '<div class="video-card"'+(click ? ' onclick="'+click+'"' : '')+'><div class="thumb">'+thumb+'<div class="play-badge">&#9654;</div></div><div class="body"><h4>'+esc(w.title)+tag+awardTag+'</h4><div class="meta"><span class="creator">'+esc(w.creator_name)+'</span></div></div></div>';
@@ -285,7 +294,7 @@ fetch(API+'/api/works').then(function(r){return r.json()}).then(function(works){
         var mw = works.filter(function(w){return w.creator_id == creatorId});
         if(mw.length === 0) mw = works.slice(0, 4);
         mw.forEach(function(w){
-            var hasV = hasBV(w.embed_id);
+            var hasV = hasVideo(w.embed_id);
             var thumb = w.image_url ? '<img src="'+w.image_url+'">' : '<img src="'+DEFAULT_THUMB+'" alt="'+esc(w.title)+'" style="width:100%;height:100%;object-fit:cover">';
             var click = hasV ? 'openVideoModal(\''+esc(w.embed_id)+'\',\''+esc(w.title)+'\',\''+esc(w.description)+'\',\''+esc(w.creator_name)+'\',\''+w.creator_id+'\')' : '';
             pw.innerHTML += '<div class="video-card"'+(click ? ' onclick="'+click+'"' : '')+'><div class="thumb">'+thumb+'</div><div class="body"><h4>'+esc(w.title)+'</h4></div></div>';

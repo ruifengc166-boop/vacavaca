@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>“瓦卡奖”AI精品短剧创作营招募</title>
+  <meta name="description" content="“瓦卡奖”AI精品短剧创作营，定向招募10—20位瓦卡奖获奖选手或同级别AI视觉顶尖人才，用2个月完成1—3分钟AI精品短剧样片。" />
+  <style>
+    :root {
+      --bg: #050607;
+      --bg-soft: #0b0d10;
+      --card: rgba(255, 255, 255, 0.055);
+      --card-strong: rgba(255, 255, 255, 0.095);
+      --line: rgba(255, 255, 255, 0.14);
+      --line-soft: rgba(255, 255, 255, 0.08);
+      --text: rgba(255, 255, 255, 0.94);
+      --muted: rgba(255, 255, 255, 0.62);
+      --dim: rgba(255, 255, 255, 0.38);
+      --green: #b8ff31;
+      --green-soft: rgba(184, 255, 49, 0.22);
+      --purple: #8a5cff;
+      --cyan: #7ee8ff;
+      --pink: #ff5aa5;
+      --radius-xl: 34px;
+      --radius-lg: 24px;
+      --radius-md: 18px;
+      --shadow: 0 30px 120px rgba(0, 0, 0, 0.55);
+      --max: 1180px;
+      --serif: "PingFang SC","Noto Serif SC",serif;
+      --sans: "PingFang SC","Microsoft YaHei",-apple-system,sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "PingFang SC","Microsoft YaHei",-apple-system,sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 12% 8%, rgba(126, 232, 255, 0.13), transparent 28%),
+        radial-gradient(circle at 82% 16%, rgba(184, 255, 49, 0.13), transparent 30%),
+        radial-gradient(circle at 48% 56%, rgba(138, 92, 255, 0.10), transparent 36%),
+        linear-gradient(180deg, #040506 0%, #090b0e 46%, #030405 100%);
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.028) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.024) 1px, transparent 1px);
+      background-size: 56px 56px;
+      mask-image: radial-gradient(circle at 50% 20%, black, transparent 72%);
+      opacity: 0.42;
+      z-index: 0;
+    }
+
+    .noise {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.075;
+      mix-blend-mode: overlay;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.78' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    .site { position: relative; z-index: 2; }
+    a { color: inherit; text-decoration: none; }
+
+    .nav {
+      position: fixed;
+      top: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(calc(100% - 36px), var(--max));
+      height: 64px;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 999px;
+      background: rgba(5, 6, 7, 0.54);
+      backdrop-filter: blur(22px) saturate(150%);
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 18px 0 22px;
+      box-shadow: 0 18px 70px rgba(0,0,0,0.34);
+    }
+
+    .brand { display: flex; align-items: center; gap: 12px; min-width: 0; }
+    .brand img { height: 31px; width: auto; display: block; filter: drop-shadow(0 0 18px rgba(184,255,49,0.16)); }
+    .brand span { font-size: 13px; letter-spacing: 0.22em; color: rgba(255,255,255,0.72); white-space: nowrap; }
+
+    .nav-links { display: flex; align-items: center; gap: 6px; }
+    .nav-links a {
+      font-size: 13px;
+      color: rgba(255,255,255,0.62);
+      padding: 10px 12px;
+      border-radius: 999px;
+      transition: 0.25s ease;
+    }
+    .nav-links a:hover { color: #fff; background: rgba(255,255,255,0.08); }
+    .nav-cta {
+      margin-left: 8px;
+      padding: 12px 18px !important;
+      color: #0b0d10 !important;
+      background: linear-gradient(135deg, #f4ffe5, var(--green));
+      box-shadow: 0 0 28px rgba(184,255,49,0.28);
+      font-weight: 650;
+    }
+
+    .hero {
+      min-height: 100vh;
+      padding: 148px 22px 86px;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      position: relative;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(5,6,7,0.90) 0%, rgba(5,6,7,0.62) 43%, rgba(5,6,7,0.18) 100%),
+        linear-gradient(180deg, rgba(5,6,7,0.32) 0%, rgba(5,6,7,0.82) 100%),
+        url('assets/hero_gallery.png') center/cover no-repeat;
+      opacity: 0.86;
+      z-index: -2;
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 980px;
+      height: 980px;
+      right: -280px;
+      top: 54px;
+      border-radius: 50%;
+      border: 1px solid rgba(184,255,49,0.22);
+      box-shadow: inset 0 0 80px rgba(184,255,49,0.08), 0 0 120px rgba(184,255,49,0.06);
+      z-index: -1;
+    }
+
+    .hero-inner { width: min(100%, var(--max)); display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 48px; align-items: end; }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 13px;
+      border: 1px solid rgba(255,255,255,0.16);
+      background: rgba(255,255,255,0.055);
+      border-radius: 999px;
+      color: rgba(255,255,255,0.70);
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      backdrop-filter: blur(14px);
+    }
+    .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 18px var(--green); }
+
+    h1 {
+      margin: 26px 0 0;
+      font-weight: 700;
+      line-height: 0.98;
+      letter-spacing: -0.075em;
+      font-size: 48px;
+    }
+    .hero-title-small {
+      display: block;
+      font-size: 32px;
+      letter-spacing: -0.055em;
+      color: rgba(255,255,255,0.82);
+      margin-top: 12px;
+    }
+    .hero-lead {
+      margin: 28px 0 0;
+      max-width: 710px;
+      font-size: 18px;
+      line-height: 1.62;
+      color: rgba(255,255,255,0.72);
+      letter-spacing: -0.02em;
+    }
+    .hero-lead strong { color: #fff; font-weight: 680; }
+
+    .hero-actions { margin-top: 42px; display: flex; flex-wrap: wrap; gap: 14px; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border-radius: 999px;
+      padding: 16px 24px;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.07);
+      color: rgba(255,255,255,0.88);
+      font-weight: 650;
+      letter-spacing: -0.01em;
+      transition: transform .25s ease, background .25s ease, box-shadow .25s ease;
+      backdrop-filter: blur(16px);
+    }
+    .btn:hover { transform: translateY(-2px); background: rgba(255,255,255,0.105); }
+    .btn.primary { color: #090b0d; background: linear-gradient(135deg, #ffffff 0%, #d8ff83 50%, var(--green) 100%); box-shadow: 0 20px 60px rgba(184,255,49,0.22); border: 0; }
+    .btn.primary:hover { box-shadow: 0 24px 70px rgba(184,255,49,0.30); }
+
+    .hero-panel {
+      border: 1px solid rgba(255,255,255,0.16);
+      background: linear-gradient(180deg, rgba(255,255,255,0.105), rgba(255,255,255,0.045));
+      border-radius: var(--radius-xl);
+      padding: 26px;
+      backdrop-filter: blur(24px);
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-panel::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      background: radial-gradient(circle at 24% 0%, rgba(184,255,49,0.24), transparent 38%), radial-gradient(circle at 94% 80%, rgba(126,232,255,0.13), transparent 38%);
+      opacity: 0.95;
+      z-index: -1;
+    }
+    .metric-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .metric {
+      min-height: 156px;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 24px;
+      padding: 20px;
+      background: rgba(0,0,0,0.24);
+    }
+    .metric b { display:block; font-size: 32px; line-height: 1; letter-spacing: -0.06em; font-weight: 720; }
+    .metric span { display:block; margin-top: 12px; color: var(--muted); line-height: 1.45; font-size: 14px; }
+    .metric.wide { grid-column: span 2; min-height: 126px; display:flex; align-items:center; justify-content:space-between; gap:16px; }
+    .metric.wide b { font-size: 24px; color: var(--green); }
+
+    section { padding: 104px 22px; position: relative; }
+    .section-inner { width: min(100%, var(--max)); margin: 0 auto; }
+    .section-head { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 42px; align-items: end; margin-bottom: 38px; }
+    .kicker { color: var(--green); letter-spacing: 0.22em; text-transform: uppercase; font-size: 12px; font-weight: 780; }
+    h2 { margin: 12px 0 0; font-size: 32px; line-height: 1.02; letter-spacing: -0.065em; }
+    .section-desc { color: var(--muted); font-size: 19px; line-height: 1.75; margin: 0; max-width: 700px; }
+
+    .glass-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .glass-card {
+      position: relative;
+      min-height: 300px;
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,0.078), rgba(255,255,255,0.032));
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      overflow: hidden;
+      box-shadow: 0 22px 80px rgba(0,0,0,0.26);
+    }
+    .glass-card::before {
+      content: "";
+      position: absolute;
+      left: 0; top: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--green), transparent 72%);
+      opacity: 0.9;
+    }
+    .glass-card .num { color: var(--green); font-size: 13px; letter-spacing: 0.16em; font-weight: 760; }
+    .glass-card h3 { margin: 36px 0 0; font-size: 27px; letter-spacing: -0.045em; line-height: 1.15; }
+    .glass-card p { margin: 18px 0 0; color: var(--muted); line-height: 1.72; font-size: 15.5px; }
+    .glass-card ul { margin: 18px 0 0; padding: 0; list-style: none; color: var(--muted); line-height: 1.82; font-size: 15px; }
+    .glass-card li::before { content: "·"; color: var(--green); margin-right: 10px; }
+
+    .feature {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 24px;
+      align-items: stretch;
+    }
+    .feature-copy {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      padding: 48px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.078), rgba(255,255,255,0.032));
+    }
+    .feature-copy h2 { font-size: 32px; }
+    .feature-copy p { color: var(--muted); line-height: 1.75; font-size: 18px; }
+    .feature-visual {
+      min-height: 520px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      background: url('assets/network.png') center/cover no-repeat;
+      position: relative;
+      box-shadow: var(--shadow);
+    }
+    .feature-visual::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.52));
+    }
+
+    .timeline { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; counter-reset: step; }
+    .time-card {
+      position: relative;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--line);
+      padding: 30px;
+      min-height: 285px;
+      background: rgba(255,255,255,0.055);
+      overflow: hidden;
+    }
+    .time-card::before {
+      counter-increment: step;
+      content: "0" counter(step);
+      position: absolute;
+      top: 24px;
+      right: 26px;
+      color: rgba(255,255,255,0.10);
+      font-size: 76px;
+      font-weight: 760;
+      letter-spacing: -0.08em;
+    }
+    .time-card strong { display: inline-block; color: var(--green); margin-bottom: 42px; font-size: 13px; letter-spacing: 0.16em; }
+    .time-card h3 { margin: 0; font-size: 28px; letter-spacing: -0.045em; }
+    .time-card p { color: var(--muted); line-height: 1.75; margin: 18px 0 0; }
+
+    .dark-band {
+      padding: 128px 22px;
+      background:
+        linear-gradient(180deg, rgba(5,6,7,0.0), rgba(5,6,7,0.94) 20%, rgba(5,6,7,0.96) 82%, rgba(5,6,7,0.0)),
+        radial-gradient(circle at 50% 40%, rgba(184,255,49,0.13), transparent 42%);
+    }
+
+    .form-wrap {
+      display: grid;
+      grid-template-columns: 0.8fr 1.2fr;
+      gap: 22px;
+      align-items: start;
+    }
+    .form-info, .apply-form {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      background: linear-gradient(180deg, rgba(255,255,255,0.088), rgba(255,255,255,0.036));
+      backdrop-filter: blur(20px);
+      box-shadow: var(--shadow);
+    }
+    .form-info { padding: 38px; position: sticky; top: 104px; }
+    .form-info h2 { font-size: 32px; }
+    .form-info p { color: var(--muted); line-height: 1.72; font-size: 17px; }
+    .mini-list { margin-top: 30px; display: grid; gap: 12px; }
+    .mini-item { display:flex; gap: 12px; align-items:flex-start; color: rgba(255,255,255,0.73); line-height: 1.55; font-size: 15px; }
+    .mini-item i { width: 22px; height: 22px; border-radius: 50%; background: var(--green-soft); border: 1px solid rgba(184,255,49,0.34); flex: 0 0 22px; margin-top: 1px; }
+
+    .apply-form { padding: 26px; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    label { display: block; font-size: 13px; color: rgba(255,255,255,0.62); margin: 0 0 8px 2px; }
+    input, select, textarea {
+      width: 100%;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(0,0,0,0.26);
+      border-radius: 16px;
+      color: var(--text);
+      padding: 15px 16px;
+      outline: none;
+      font: 15px var(--sans);
+      transition: .2s ease;
+    }
+    input:focus, select:focus, textarea:focus { border-color: rgba(184,255,49,0.68); box-shadow: 0 0 0 4px rgba(184,255,49,0.10); }
+    textarea { min-height: 118px; resize: vertical; }
+    .full { grid-column: 1 / -1; }
+    .hint { margin: 10px 0 0; color: var(--dim); font-size: 12px; line-height: 1.55; }
+    .submit-row { display:flex; gap: 14px; align-items:center; margin-top: 18px; flex-wrap: wrap; }
+    button.btn { cursor: pointer; border: 0; font-size: 15px; }
+    .form-note { color: var(--dim); font-size: 12.5px; line-height: 1.6; max-width: 420px; }
+    .success {
+      display: none;
+      margin-top: 16px;
+      border: 1px solid rgba(184,255,49,0.28);
+      background: rgba(184,255,49,0.08);
+      color: rgba(255,255,255,0.78);
+      padding: 14px 16px;
+      border-radius: 16px;
+      line-height: 1.55;
+      font-size: 14px;
+    }
+
+    .footer {
+      padding: 60px 22px 44px;
+      color: var(--dim);
+    }
+    .footer-inner { width: min(100%, var(--max)); margin: 0 auto; display:flex; align-items:center; justify-content:space-between; gap: 20px; border-top: 1px solid var(--line-soft); padding-top: 24px; }
+    .footer img { height: 26px; opacity: 0.72; }
+
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .75s ease, transform .75s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 980px) {
+      .nav { height: 58px; top: 12px; }
+      .nav-links a:not(.nav-cta) { display:none; }
+      .brand span { display:none; }
+      .hero { padding-top: 128px; }
+      .hero-inner, .section-head, .feature, .form-wrap { grid-template-columns: 1fr; }
+      .hero-panel { max-width: 640px; }
+      .glass-grid, .timeline { grid-template-columns: 1fr; }
+      .feature-visual { min-height: 380px; }
+      .form-info { position: static; }
+    }
+    @media (max-width: 640px) {
+      .hero { min-height: auto; padding-bottom: 68px; }
+      h1 { font-size: 54px; }
+      .hero-title-small { font-size: 38px; }
+      .hero-lead { font-size: 17px; }
+      .metric-grid, .form-grid { grid-template-columns: 1fr; }
+      .metric.wide { grid-column: auto; display:block; }
+      section { padding: 78px 18px; }
+      .feature-copy, .form-info { padding: 28px; }
+      .apply-form { padding: 18px; }
+      .footer-inner { flex-direction: column; align-items:flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <div class="noise"></div>
+  <div class="site">
+    <nav class="nav">
+      <a class="brand" href="#top" aria-label="VACAT Award">
+        <img src="assets/vacat_logo.png" alt="VACAT Award" />
+        <span>AI精品短剧创作营</span>
+      </a>
+      <div class="nav-links">
+        <a href="#about">定位</a>
+        <a href="#who">招募对象</a>
+        <a href="#gain">入营收获</a>
+        <a href="#timeline">周期</a>
+        <a class="nav-cta" href="#apply">立即报名</a>
+      </div>
+    </nav>
+
+    <header id="top" class="hero">
+      <div class="hero-inner">
+        <div class="hero-copy reveal">
+          <div class="eyebrow"><span class="dot"></span> VACAT AWARD · AI SHORT DRAMA CAMP</div>
+          <h1>AI精品短剧<span class="hero-title-small">创作营招募</span></h1>
+          <p class="hero-lead">用AI，做出真正能进入产业的精品短剧。<br />面向 <strong>“瓦卡奖”获奖选手</strong> 与同级别AI视觉顶尖人才，完成从创意作品到产业生产力的跃迁。</p>
+          <div class="hero-actions">
+            <a class="btn primary" href="#apply">提交入营申请 →</a>
+            <a class="btn" href="#gain">查看入营收获</a>
+          </div>
+        </div>
+        <aside class="hero-panel reveal" aria-label="项目关键数字">
+          <div class="metric-grid">
+            <div class="metric"><b>10–20</b><span>定向招募核心创作者 / 团队</span></div>
+            <div class="metric"><b>5–8</b><span>产出AI精品短剧样片</span></div>
+            <div class="metric"><b>1–3'</b><span>每部作品建议时长</span></div>
+            <div class="metric"><b>2个月</b><span>招募筛选、实战创作、成果推介</span></div>
+            <div class="metric wide"><b>大师进阶营 + 精品剧产出 + 产业落地推介</b><span>不是入门课，而是精品内容孵化计划。</span></div>
+          </div>
+        </aside>
+      </div>
+    </header>
+
+    <section id="about">
+      <div class="section-inner">
+        <div class="section-head reveal">
+          <div><div class="kicker">POSITION</div><h2>不是炫技。<br />是交付。</h2></div>
+          <p class="section-desc">AI短剧正在从视觉实验走向真实产业场景。本创作营依托“瓦卡奖”优秀创作者资源，帮助具备成熟AI视觉创作能力的人，完成一部可展示、可推介、可商业合作的精品短剧样片。</p>
+        </div>
+        <div class="glass-grid">
+          <article class="glass-card reveal"><div class="num">01</div><h3>大师进阶营</h3><p>不讲基础工具，不做入门教学。重点提升工业化流程、影视级质感、商业级交付与合规意识。</p></article>
+          <article class="glass-card reveal"><div class="num">02</div><h3>精品剧产出</h3><p>围绕本地文旅、品牌IP、出海短剧、行业命题或原创方向，完成1—3分钟AI精品短剧样片。</p></article>
+          <article class="glass-card reveal"><div class="num">03</div><h3>产业落地推介</h3><p>通过成果发布、政策宣讲、资源路演、企业对接，推动优秀创作者与真实产业资源发生连接。</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="who" class="dark-band">
+      <div class="section-inner feature">
+        <div class="feature-copy reveal">
+          <div class="kicker">WHO WE WANT</div>
+          <h2>寻找已经能创作，且想更进一步的人。</h2>
+          <p>本创作营优先面向“瓦卡奖”获奖选手、入围创作者，以及具备同级别创作能力的AI视觉顶尖人才。</p>
+          <ul style="list-style:none;padding:0;margin:28px 0 0;color:rgba(255,255,255,.68);line-height:2;">
+            <li>· 已具备成熟AI视频创作能力</li>
+            <li>· 拥有完整AI视觉作品或短片作品</li>
+            <li>· 具备审美、叙事与执行能力</li>
+            <li>· 希望完成更具商业价值的精品短剧样片</li>
+            <li>· 有意向参与产业合作、品牌命题或本地项目落地</li>
+          </ul>
+        </div>
+        <div class="feature-visual reveal" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <section id="gain">
+      <div class="section-inner">
+        <div class="section-head reveal">
+          <div><div class="kicker">WHAT YOU GET</div><h2>入营后，<br />你将获得什么</h2></div>
+          <p class="section-desc">把一个创意，推进到可以被评审、被展映、被推介、被商业讨论的阶段。</p>
+        </div>
+        <div class="glass-grid">
+          <article class="glass-card reveal"><div class="num">A</div><h3>进阶知识体系</h3><ul><li>AI短剧工业化流程</li><li>商业级交付标准</li><li>影视级画面质感</li><li>版权与内容合规</li></ul></article>
+          <article class="glass-card reveal"><div class="num">B</div><h3>定向命题实战</h3><ul><li>本地文旅</li><li>品牌IP</li><li>出海短剧</li><li>行业主题与原创精品短剧</li></ul></article>
+          <article class="glass-card reveal"><div class="num">C</div><h3>专家驻场辅导</h3><ul><li>故事表达</li><li>视觉统一</li><li>镜头节奏</li><li>成片完成度</li></ul></article>
+          <article class="glass-card reveal"><div class="num">D</div><h3>作品展示机会</h3><p>优秀作品将在成果发布或相关展示活动中集中呈现，获得更高质量的行业曝光。</p></article>
+          <article class="glass-card reveal"><div class="num">E</div><h3>产业资源链接</h3><p>有机会与本地品牌、文旅机构、产业平台、政策服务机构和企业资源进行对接。</p></article>
+          <article class="glass-card reveal"><div class="num">F</div><h3>落地发展支持</h3><p>对有意愿落地发展的创作者和团队，提供政策咨询、注册咨询、办公空间与项目合作机会。</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="timeline" class="dark-band">
+      <div class="section-inner">
+        <div class="section-head reveal">
+          <div><div class="kicker">TIMELINE</div><h2>2个月，<br />完成一次跃迁</h2></div>
+          <p class="section-desc">从定向招募，到大师营实战创作，再到成果发布与产业推介。目标很明确：做出能被看见、能被讨论、能被连接的精品短剧样片。</p>
+        </div>
+        <div class="timeline">
+          <div class="time-card reveal"><strong>阶段一</strong><h3>招募与筛选</h3><p>提交作品集与精品短剧创作提案，组委会评审后确定10—20名核心成员入营。</p></div>
+          <div class="time-card reveal"><strong>阶段二</strong><h3>大师营与实战创作</h3><p>线上/线下大师课程、导师辅导、远程/驻地创作，完成1—3分钟AI精品短剧样片。</p></div>
+          <div class="time-card reveal"><strong>阶段三</strong><h3>成果发布与产业推介</h3><p>举办“瓦卡奖AI短剧之夜”，集中展映作品，推动人才落地、项目合作和商业对接。</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="apply">
+      <div class="section-inner form-wrap">
+        <aside class="form-info reveal">
+          <div class="kicker">APPLY NOW</div>
+          <h2>提交入营申请</h2>
+          <p>请提交你的基本信息、作品集链接与AI精品短剧创作提案。我们将重点评估作品能力、短剧潜力与产业落地意愿。</p>
+          <div class="mini-list">
+            <div class="mini-item"><i></i><span>报名对象：瓦卡奖获奖选手、入围创作者或同级别AI视觉顶尖人才。</span></div>
+            <div class="mini-item"><i></i><span>报名材料：个人/团队介绍、作品集、创作提案、过往经验与合作意向。</span></div>
+            <div class="mini-item"><i></i><span>最终入营：10—20位核心创作者 / 团队。</span></div>
+          </div>
+        </aside>
+
+        <form class="apply-form reveal" id="applyForm">
+          <div class="form-grid">
+            <div><label for="name">姓名 / 团队负责人 *</label><input id="name" name="name" required placeholder="请输入姓名" /></div>
+            <div><label for="team">个人 / 团队 *</label><select id="team" name="team" required><option value="">请选择</option><option>个人创作者</option><option>创作团队</option><option>工作室 / 公司</option></select></div>
+            <div><label for="phone">联系电话 *</label><input id="phone" name="phone" required placeholder="手机号 / 微信" /></div>
+            <div><label for="email">邮箱</label><input id="email" name="email" type="email" placeholder="用于接收入营通知" /></div>
+            <div class="full"><label for="portfolio">作品集链接 *</label><input id="portfolio" name="portfolio" required placeholder="B站 / 小红书 / 夸克网盘 / 百度网盘 / 个人网站链接" /><p class="hint">请确保链接可打开。如有提取码，请写在链接后。</p></div>
+            <div class="full"><label for="proposal">AI精品短剧创作提案 *</label><textarea id="proposal" name="proposal" required placeholder="请用300字以内说明：你想做什么短剧？视觉风格是什么？为什么适合用AI完成？"></textarea></div>
+            <div><label for="track">提案方向</label><select id="track" name="track"><option>本地文旅</option><option>品牌IP</option><option>出海短剧</option><option>行业命题</option><option>原创精品短剧</option></select></div>
+            <div><label for="landing">是否有本地落地/产业合作意向</label><select id="landing" name="landing"><option>有，愿意进一步沟通</option><option>暂不确定</option><option>仅参与创作营</option></select></div>
+            <div class="full"><label for="note">补充说明</label><textarea id="note" name="note" placeholder="可补充团队成员、使用工具、过往项目、合作需求等。"></textarea></div>
+          </div>
+          <div class="submit-row">
+            <button class="btn primary" type="submit">提交申请 →</button>
+            <div class="form-note">上线前请将表单接入官网后端、飞书表单、金数据、问卷星或CRM接口。当前页面已保留前端校验与提交位置。</div>
+          </div>
+          <div class="success" id="successBox">已生成报名信息。当前为静态演示版：请在上线前配置表单提交接口。</div>
+        </form>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <img src="assets/vacat_logo.png" alt="VACAT Award" />
+        <div>“瓦卡奖”AI精品短剧创作营 · 用AI完成下一部能被产业看见的精品短剧</div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.12 });
+    reveals.forEach(el => observer.observe(el));
+
+    // 配置说明：如需真实提交，请把下面 endpoint 改为你的表单接口，或将表单 action 指向飞书/金数据/问卷星等服务。
+    const FORM_ENDPOINT = '';
+    const form = document.getElementById('applyForm');
+    const successBox = document.getElementById('successBox');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(form).entries());
+
+      if (!FORM_ENDPOINT) {
+        const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `VACAT_AI_short_drama_application_${Date.now()}.json`;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+        successBox.style.display = 'block';
+        return;
+      }
+
+      try {
+        const res = await fetch(FORM_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        if (!res.ok) throw new Error('submit failed');
+        successBox.textContent = '申请已提交。我们将在完成初筛后与你联系。';
+        successBox.style.display = 'block';
+        form.reset();
+      } catch (err) {
+        successBox.textContent = '提交失败，请稍后重试，或联系组委会工作人员。';
+        successBox.style.display = 'block';
+      }
+    });
+  </script>
+</body>
+</html>

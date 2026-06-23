@@ -69,6 +69,7 @@ router.get('/bilibili-info', function(req,res,next){
 // GET /api/works
 router.get('/',function(req,res,next){
   let works=db.load('works');
+  console.log('WORKS_ROUTE: loaded', works.length, 'works');
   if(req.query.creator_id)works=works.filter(w=>w.creator_id==req.query.creator_id);if(req.query.award)works=works.filter(w=>w.award===req.query.award);if(req.query.track)works=works.filter(w=>w.track===req.query.track);if(req.query.edition)works=works.filter(w=>w.edition===req.query.edition);
   works.sort((a,b)=>b.id-a.id);
   const creators=db.load('creators');
@@ -99,6 +100,7 @@ router.post('/admin/works',isAdmin,upload.single('file'),function(req,res,next){
 // Admin PUT
 router.put('/admin/works/:id',isAdmin,upload.single('file'),function(req,res,next){
   let works=db.load('works');
+  console.log('WORKS_ROUTE: loaded', works.length, 'works');
   const idx=works.findIndex(w=>w.id==req.params.id);
   if(idx===-1)return res.status(404).json({error:'作品不存在'});
   const{title,description,creator_id,embed_type,embed_id,image_url,award,track}=req.body;
@@ -116,6 +118,7 @@ router.put('/admin/works/:id',isAdmin,upload.single('file'),function(req,res,nex
 // Admin DELETE
 router.delete('/admin/works/:id',isAdmin,function(req,res,next){
   let works=db.load('works');
+  console.log('WORKS_ROUTE: loaded', works.length, 'works');
   const w=works.find(w=>w.id==req.params.id);
   works=works.filter(w=>w.id!=req.params.id);
   db.save('works',works);
