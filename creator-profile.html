@@ -9,7 +9,7 @@
 <body>
 <div class="navbar"><div class="container"><a class="logo" href="index.html"><img src="/assets/logo/nav-logo.png" alt="VACAT" style="height:24px;width:auto;display:block;vertical-align:middle"></a><div class="nav-links"><a href="index.html">发现</a><a href="creators.html">创作人</a><a href="works.html">作品</a><a href="vacat.html">瓦卡奖</a><a href="events.html">活动</a><a href="referral.html">引荐</a></div><div class="nav-actions"><a href="login.html" class="btn-nav">登录</a><a href="register.html" class="btn-reg">注册</a></div><div class="nav-toggle"><span></span><span></span><span></span></div></div></div>
 <div class="container"><div class="profile-header"><div class="av-main" id="profileAvatar" style="background:linear-gradient(135deg,#cafe61,#a8d43e)">?</div><div class="info"><h1 id="profileName">加载中...</h1><div class="title" id="profileTitle">AI视觉创作者</div><div class="tags" id="profileTags"></div><p class="bio" id="profileBio">加载中...</p></div><div class="actions"><a href="referral.html" class="btn btn-gold">发起引荐</a></div></div><div class="section"><div class="section-header"><h2>代表作品</h2></div><div class="profile-works" id="profile-works"></div></div><div class="section" style="margin-bottom:48px"><div class="section-header"><h2>获奖记录</h2></div><div id="profileAwards" style="background:var(--card);border-radius:var(--radius);border:1px solid var(--border);padding:20px"><div style="padding:8px 0;font-size:14px;color:var(--text3)">加载中...</div></div></div></div>
-<div class="footer"><div class="container"><div class="footer-grid"><div class="footer-brand"><img src="/assets/logo/nav-logo.png" alt="VACAT" style="height:36px;width:auto;display:block;margin-bottom:8px"><p>AI视觉创作者部落 · 瓦卡奖组委会支持的社区平台。</p></div><div class="footer-col"><h4>发现</h4><a href="creators.html">创作人</a><a href="works.html">作品</a><a href="events.html">活动</a></div><div class="footer-col"><h4>关于</h4><a href="vacat.html">瓦卡奖</a><a href="about.html">关于我们</a><a href="referral.html">引荐</a></div><div class="footer-col"><h4>支持</h4><a href="#">联系方式</a><a href="referral.html">FAQ</a><a href="register.html">注册</a><a href="/admin/" target="_blank">后台</a></div></div><div class="footer-bottom"><span>&copy; 2026 AI视觉创作者部落</span><span>沪ICP备XXXXXXXX号</span></div></div></div>
+<div class="footer"><div class="container"><div class="footer-grid"><div class="footer-brand"><img src="/assets/logo/nav-logo.png" alt="VACAT" style="height:36px;width:auto;display:block;margin-bottom:8px"><p>AI视觉创作者部落 · 瓦卡奖组委会支持的社区平台。</p></div><div class="footer-col"><h4>发现</h4><a href="creators.html">创作人</a><a href="works.html">作品</a><a href="events.html">活动</a></div><div class="footer-col"><h4>关于</h4><a href="vacat.html">瓦卡奖</a><a href="about.html">关于我们</a><a href="referral.html">引荐</a></div><div class="footer-col"><h4>支持</h4><a href="about.html">联系方式</a><a href="referral.html">FAQ</a></div></div><div class="footer-bottom"><span>&copy; 2026 AI视觉创作者部落</span><span>沪ICP备XXXXXXXX号</span></div></div></div>
 <script src="js/content-loader.js"></script>
 <script src="js/main.js"></script>
 <script>
@@ -18,57 +18,45 @@
   var params = new URLSearchParams(window.location.search);
   var id = params.get('id');
   if (!id) { var m = location.search.match(/id=(\d+)/); if(m) id = m[1]; }
-  if (id) {
-    fetch(API + '/api/creators/' + id).then(function(r){return r.json()}).then(function(c){
-      if (!c || c.error) return;
-      // Avatar
-      var avEl = document.getElementById('profileAvatar');
-      if (avEl) {
-        if (c.avatar && c.avatar.length > 2 && (c.avatar.indexOf('http')===0 || c.avatar.indexOf('/')===0)) {
-          avEl.innerHTML = '<img loading="lazy" src="'+c.avatar+'" style="width:120px;height:120px;border-radius:50%;object-fit:cover">';
-        } else {
-          avEl.style.background = 'linear-gradient(135deg,#cafe61,#a8d43e)';
-          avEl.textContent = c.avatar || c.name[0] || '?';
-        }
+  if (!id) return;
+  fetch(API + '/api/creators').then(function(r){return r.json()}).then(function(list){
+    var c = Array.isArray(list) ? list.find(function(item){ return String(item.id) === String(id); }) : null;
+    if (!c) return;
+    var levelNames = {explorer:'Explorer',dreamer:'Dreamer',creator:'Creator'};
+    var avEl = document.getElementById('profileAvatar');
+    if (avEl) {
+      if (c.avatar && c.avatar.length > 2 && (c.avatar.indexOf('http')===0 || c.avatar.indexOf('/')===0)) {
+        avEl.innerHTML = '<img loading="lazy" src="'+c.avatar+'" style="width:120px;height:120px;border-radius:50%;object-fit:cover">';
+      } else {
+        avEl.style.background = 'linear-gradient(135deg,#cafe61,#a8d43e)';
+        avEl.textContent = c.avatar || (c.name ? c.name[0] : '?');
       }
-      // Name
-      document.getElementById('profileName').textContent = c.name || '';
-      // Title
-      document.getElementById('profileTitle').textContent = (c.specialty || 'AI视觉创作者') + (c.lv && (window.levelNames||{})[c.lv] ? ' · ' + (window.levelNames||{})[c.lv] : '');
-      // Tags
-      var tagsEl = document.getElementById('profileTags');
-      if (tagsEl) {
-        var levelBadge = c.lv ? '<span class="badge-sm badge-'+c.lv+'">' + ((window.levelNames||{})[c.lv] || c.lv) + '</span>' : '';
-        var specialtyTags = '';
-        if (c.tags) {
-          var tags = typeof c.tags === 'string' ? c.tags.split(',').map(function(t){return t.trim();}).filter(Boolean) : c.tags;
-          tagsEl.innerHTML = levelBadge + tags.map(function(t){return '<span class="badge-sm" style="background:rgba(255,255,255,0.06);color:var(--text3)">'+t+'</span>';}).join('');
-        } else {
-          tagsEl.innerHTML = levelBadge;
-        }
+    }
+    document.getElementById('profileName').textContent = c.name || '';
+    document.getElementById('profileTitle').textContent = (c.specialty || 'AI视觉创作者') + (c.level ? ' · ' + (levelNames[c.level] || c.level) : '');
+    var tagsEl = document.getElementById('profileTags');
+    if (tagsEl) {
+      var levelBadge = c.level ? '<span class="badge-sm badge-'+c.level+'">' + (levelNames[c.level] || c.level) + '</span>' : '';
+      var tags = typeof c.tags === 'string' ? c.tags.split(',').map(function(t){return t.trim();}).filter(Boolean) : (c.tags || []);
+      tagsEl.innerHTML = levelBadge + tags.map(function(t){return '<span class="badge-sm" style="background:rgba(255,255,255,0.06);color:var(--text3)">'+t+'</span>';}).join('');
+    }
+    document.getElementById('profileBio').textContent = c.bio || '';
+    document.title = (c.name || '创作人') + ' - VACAT';
+    fetch(API + '/api/works').then(function(r){return r.json()}).then(function(works){
+      var awardEl = document.getElementById('profileAwards');
+      if (!awardEl) return;
+      var awarded = (works || []).filter(function(w){ return String(w.creator_id) === String(id) && w.award && w.award.trim(); });
+      if (awarded.length === 0) {
+        awardEl.innerHTML = '<div style="padding:8px 0;font-size:14px;color:var(--text3)">暂无获奖记录</div>';
+        return;
       }
-      // Bio
-      document.getElementById('profileBio').textContent = c.bio || '';
-      // Title tag
-      document.title = (c.name || '创作人') + ' - VACAT';
-      // Load works/awards for this creator
-      fetch(API + '/api/works?creator_id=' + id).then(function(r){return r.json()}).then(function(works){
-        var awardEl = document.getElementById('profileAwards');
-        if (!awardEl) return;
-        var awarded = works.filter(function(w){ return w.award && w.award.trim(); });
-        if (awarded.length === 0) {
-          awardEl.innerHTML = '<div style="padding:8px 0;font-size:14px;color:var(--text3)">暂无获奖记录</div>';
-          return;
-        }
-        awardEl.innerHTML = awarded.map(function(w, i){
-          var html = w.edition + '瓦卡奖 · ' + (w.track || '') + ' · ' + w.award;
-          var border = i < awarded.length - 1 ? 'border-bottom:1px solid var(--border);' : '';
-          return '<div style="padding:8px 0;' + border + 'font-size:14px;' + (i > 0 ? 'margin-top:4px' : '') + '">🏆 ' + html + '</div>';
-        }).join('');
-      }).catch(function(){});
-
+      awardEl.innerHTML = awarded.map(function(w, i){
+        var html = w.edition + '瓦卡奖 · ' + (w.track || '') + ' · ' + w.award;
+        var border = i < awarded.length - 1 ? 'border-bottom:1px solid var(--border);' : '';
+        return '<div style="padding:8px 0;' + border + 'font-size:14px;' + (i > 0 ? 'margin-top:4px' : '') + '">🏆 ' + html + '</div>';
+      }).join('');
     }).catch(function(){});
-  }
+  }).catch(function(){});
 })();
 </script>
 </body>
