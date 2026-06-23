@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>作品 - VACAT AI视觉创作者部落</title>
+
+<link rel="stylesheet" href="css/style.css">
+  <meta name="description" content="AI视觉创意作品展播，AI生成短片、AI绘画、概念设计等精彩内容。">
+<style>body{background:#0A0A0A url('/assets/backgrounds/bg-bottom.png') no-repeat bottom center fixed;background-size:cover}</style>
+</head>
+<body>
+<div class="navbar"><div class="container"><a class="logo" href="index.html"><img src="/assets/logo/nav-logo.png" alt="VACAT" style="height:24px;width:auto;display:block;vertical-align:middle"></a><div class="nav-links"><a href="index.html">发现</a><a href="creators.html">创作人</a><a href="works.html">作品</a><a href="vacat.html">瓦卡奖</a><a href="events.html">活动</a><a href="referral.html">引荐</a></div><div class="nav-actions"><a href="login.html" class="btn-nav">登录</a><a href="register.html" class="btn-reg">注册</a></div><div class="nav-toggle"><span></span><span></span><span></span></div></div></div>
+<div class="page-header"><div class="container"><h1 data-c="works_page.title">作品</h1><p data-c="works_page.subtitle">浏览社区创作者的精选AI视觉作品，寻找灵感与合作可能</p></div></div><div class="container" style="padding-bottom:60px;margin-top:80px">
+<div class="works-filters" style="display:flex;gap:12px;margin-bottom:24px;flex-wrap:wrap">
+  <select id="filterEdition" onchange="filterWorks()" style="background:var(--card);border:1px solid var(--border);border-radius:6px;color:rgba(255,255,255,0.9);padding:8px 12px;font-size:13px">
+    <option value="">届数：全部</option>
+    <option value="第二届">第二届（2025）</option>
+    <option value="第一届">第一届（2024）</option>
+  </select>
+  <select id="filterAward" onchange="filterWorks()" style="background:var(--card);border:1px solid var(--border);border-radius:6px;color:rgba(255,255,255,0.9);padding:8px 12px;font-size:13px">
+    <option value="">获奖类型：全部</option>
+    <option value="金奖">金奖</option>
+    <option value="银奖">银奖</option>
+    <option value="铜奖">铜奖</option>
+    <option value="优秀奖">优秀奖</option>
+  </select>
+  <select id="filterTrack" onchange="filterWorks()" style="background:var(--card);border:1px solid var(--border);border-radius:6px;color:rgba(255,255,255,0.9);padding:8px 12px;font-size:13px">
+    <option value="">赛道类型：全部</option>
+    <option value="原创IP影片">原创IP影片</option>
+    <option value="经典IP改编">经典IP改编</option>
+    <option value="视觉艺术影片">视觉艺术影片</option>
+    <option value="创意宣传影片">创意宣传影片</option>
+  </select>
+  <input id="filterSearch" type="text" placeholder="搜索作品名称、作者..." oninput="filterWorks()" style="background:var(--card);border:1px solid var(--border);border-radius:6px;color:rgba(255,255,255,0.9);padding:8px 12px;font-size:13px;flex:1;min-width:180px">
+</div>
+<div class="works-grid" id="works-grid"></div>
+<div class="works-flow" id="works-flow" style="display:none;overflow:hidden;position:relative;cursor:grab"></div>
+<div class="pagination" id="worksPagination" style="display:flex;justify-content:center;gap:8px;margin-top:32px;flex-wrap:wrap"></div></div>
+<div class="footer"><div class="container"><div class="footer-grid"><div class="footer-brand"><img src="/assets/logo/nav-logo.png" alt="VACAT" style="height:36px;width:auto;display:block;margin-bottom:8px"><p>AI视觉创作者部落 · 瓦卡奖组委会支持的社区平台</p></div><div class="footer-col"><h4>发现</h4><a href="creators.html">创作人</a><a href="works.html">作品</a><a href="events.html">活动</a></div><div class="footer-col"><h4>关于</h4><a href="vacat.html">瓦卡奖</a><a href="about.html">关于我们</a><a href="referral.html">引荐</a></div><div class="footer-col"><h4>支持</h4><a href="#">联系方式</a><a href="referral.html">FAQ</a><a href="register.html">注册</a><a href="/admin/" target="_blank">后台</a></div></div><div class="footer-bottom"><span>&copy; 2026 AI视觉创作者部落</span><span>沪ICP备XXXXXXXX号</span></div></div></div>
+<script src="js/content-loader.js?v=2"></script>
+<script src="js/main.js?v=2"></script>
+</body>
+</html>

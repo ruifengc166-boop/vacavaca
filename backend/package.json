@@ -1,0 +1,13 @@
+{
+  "name": "vacat-backend",
+  "version": "1.0.0",
+  "description": "AI视觉创作者部落 - Backend API",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "multer": "^2.2.0"
+  }
+}

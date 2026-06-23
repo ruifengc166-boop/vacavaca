@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>管理后台 - AI视觉创作者部落</title>
+<style>
+/* Admin Panel Styles */
+:root { --bg-dark:#0A0A0A; --bg-card:#1A1A1A; --bg-input:#111; --brand-gold:#cafe61; --brand-gold-light:#dafe81; --text-white:#FFF; --text-muted:#9CA3AF; --radius:8px; }
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:"PingFang SC","Microsoft YaHei",sans-serif; background:var(--bg-dark); color:var(--text-white); min-height:100vh; }
+.container { max-width:1200px; margin:0 auto; padding:20px; }
+.admin-layout { display:flex; min-height:calc(100vh - 40px); gap:0 }
+.sidebar { width:220px; flex-shrink:0; display:flex; flex-direction:column; background:var(--bg-card); border:1px solid rgba(255,255,255,0.06); border-radius:var(--radius); position:sticky; top:20px; align-self:flex-start; max-height:calc(100vh - 40px); overflow-y:auto }
+.sidebar-header { padding:20px 16px 12px; border-bottom:1px solid rgba(255,255,255,0.06) }
+.sidebar-logo { font-size:20px; font-weight:700; color:var(--brand-gold); letter-spacing:1px; margin-bottom:2px }
+.sidebar-title { font-size:12px; color:var(--text-muted) }
+.sidebar-nav { flex:1; padding:8px 0 }
+.sidebar-nav .tab { display:flex; align-items:center; gap:10px; padding:10px 18px; font-size:14px; color:var(--text-muted); cursor:pointer; transition:all 0.2s; border:none; border-left:3px solid transparent; background:none; width:100%; text-align:left }
+.sidebar-nav .tab:hover { color:var(--text-white); background:rgba(255,255,255,0.03) }
+.sidebar-nav .tab.active { color:var(--brand-gold); border-left-color:var(--brand-gold); background:rgba(202,254,97,0.08) }
+.sidebar-nav .tab .tab-icon { font-size:16px; width:20px; text-align:center; flex-shrink:0 }.sidebar-nav .tab-sub-toggle { display:flex; align-items:center; gap:10px; padding:10px 18px; font-size:14px; color:var(--text-muted); cursor:pointer; transition:all 0.2s; border:none; border-left:3px solid transparent; background:none; width:100%; text-align:left; border-radius:0 }.sidebar-nav .tab-sub-toggle:hover { color:var(--text-white); background:rgba(255,255,255,0.03) }.sidebar-nav .tab-sub-toggle .sub-arrow { margin-left:auto; font-size:12px; transition:transform 0.2s }.sidebar-nav .tab-sub-toggle.open .sub-arrow { transform:rotate(90deg) }.sidebar-nav .sidebar-ext-link { display:flex; align-items:center; gap:10px; padding:10px 18px; font-size:14px; color:var(--brand-gold); cursor:pointer; transition:all 0.2s; border:none; border-left:3px solid transparent; background:none; width:100%; text-align:left; margin-top:4px; border-top:1px solid rgba(255,255,255,0.06); padding-top:12px }.sidebar-nav .sidebar-ext-link:hover { color:var(--text-white); background:rgba(202,254,97,0.06) }.sidebar-nav .sub-menu { display:none; padding-left:20px }.sidebar-nav .sub-menu.open { display:block }.sidebar-nav .sub-menu .tab.sub-tab { padding:6px 12px; font-size:13px; border-left-color:rgba(202,254,97,0.2); margin:2px 0 }
+.sidebar-footer { padding:16px; border-top:1px solid rgba(255,255,255,0.06); display:flex; flex-direction:column; gap:10px; align-items:center }
+.sidebar-footer .user-info { font-size:13px; color:var(--text-muted); display:flex; align-items:center; gap:6px }
+.main-content { flex:1; min-width:0; padding-left:24px }
+.tab-content { display:none }
+.tab-content.active { display:block }
+
+.card { background:var(--bg-card); border-radius:var(--radius); border:1px solid rgba(255,255,255,0.06); padding:20px; margin-bottom:16px; }
+.card h3 { font-size:16px; margin-bottom:16px; color:var(--brand-gold-light); }
+
+table { width:100%; border-collapse:collapse; font-size:13px; }
+th, td { padding:10px 12px; text-align:left; border-bottom:1px solid rgba(255,255,255,0.04); }
+th { color:var(--text-muted); font-weight:600; font-size:12px; text-transform:uppercase; letter-spacing:0.5px; }
+td { color:var(--text-white); }
+tr:hover td { background:rgba(202,254,97,0.03); }
+
+.badge { display:inline-block; padding:2px 8px; border-radius:999px; font-size:11px; font-weight:600; }
+.badge-explorer { background:transparent; color:#818CF8; border:1px solid #818CF8; }
+.badge-dreamer { background:transparent; color:#cafe61; border:1px solid #cafe61; }
+.badge-creator { background:transparent; color:#FBBF24; border:1px solid #FBBF24; }
+
+.status-dot { display:inline-block; width:6px; height:6px; border-radius:50%; margin-right:4px; }
+.status-dot.active { background:#10B981; }
+.status-dot.inactive { background:#6B7280; }
+
+.form-row { display:grid; grid-template-columns:repeat(auto-fill, minmax(200px,1fr)); gap:12px; margin-bottom:12px; }
+.form-group { margin-bottom:12px; }
+.form-group label { display:block; font-size:12px; color:var(--text-muted); margin-bottom:4px; font-weight:600; }
+.form-group input, .form-group select, .form-group textarea { width:100%; padding:8px 10px; background:var(--bg-input); border:1px solid rgba(255,255,255,0.1); border-radius:6px; color:var(--text-white); font-size:13px; }
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline:none; border-color:var(--brand-gold); }
+.form-group textarea { min-height:60px; resize:vertical; }
+
+.btn { padding:8px 18px; border-radius:999px; font-size:13px; font-weight:600; cursor:pointer; border:none; display:inline-flex; align-items:center; gap:6px; transition:all 0.2s; }
+.btn-gold { background:linear-gradient(135deg,#cafe61,#a8d43e); color:#000; }
+.btn-gold:hover { box-shadow:0 4px 15px rgba(202,254,97,0.4); }
+.btn-sm { padding:5px 12px; font-size:11px; }
+.btn-ghost { background:transparent; border:1px solid rgba(255,255,255,0.15); color:var(--text-muted); }
+.btn-ghost:hover { border-color:var(--brand-gold); color:var(--brand-gold); }
+.btn-danger { background:rgba(239,68,68,0.15); border:1px solid rgba(239,68,68,0.3); color:#EF4444; }
+.btn-danger:hover { background:rgba(239,68,68,0.25); }
+.action-bar { display:flex; gap:8px; justify-content:flex-end; }
+.toolbar { display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; }
+
+.login-box { max-width:400px; margin:100px auto; text-align:center; }
+.login-box h2 { color:var(--brand-gold); margin-bottom:8px; }
+@media(max-width:900px){
+  .container { max-width:100%; padding:12px }
+  .admin-layout { flex-direction:column }
+  .sidebar { width:100%; position:static; max-height:none; flex-direction:row; flex-wrap:wrap; margin-bottom:16px }
+  .sidebar-header { display:none }
+  .sidebar-nav { display:flex; flex:1; padding:4px; gap:2px; flex-wrap:wrap }
+  .sidebar-nav .tab { border-left:none; border-bottom:2px solid transparent; padding:8px 12px; font-size:12px; width:auto }
+  .sidebar-nav .tab.active { border-left:none; border-bottom-color:var(--brand-gold) }
+  .sidebar-nav .tab .tab-icon { display:none }  .sidebar-nav .sub-menu { display:none!important }
+  .sidebar-footer { display:none }
+  .main-content { padding-left:0 }
+}
+.login-box p { color:var(--text-muted); font-size:14px; margin-bottom:24px; }
+.login-box input { width:100%; padding:10px 14px; background:var(--bg-input); border:1px solid rgba(255,255,255,0.1); border-radius:8px; color:var(--text-white); font-size:14px; margin-bottom:12px; }
+.login-box input:focus { outline:none; border-color:var(--brand-gold); }
+.login-box button { width:100%; padding:12px; }
+
+.mt-12 { margin-top:12px; }
+.mb-12 { margin-bottom:12px; }
+.text-muted { color:var(--text-muted); }
+.text-center { text-align:center; }
+.gap-8 { gap:8px; }
+.flex { display:flex; }
+.items-center { align-items:center; }
+.justify-between { justify-content:space-between; }
+.hidden { display:none !important; }
+
+
+@media(max-width:768px){
+  .form-row { grid-template-columns:1fr; }
+  .toolbar { flex-direction:column; gap:12px; }
+  .table-wrap { overflow-x:auto; }
+}
+
+</style>
+</head>
+<body>
+<div class="container">
+  <div id="loginScreen" class="login-box">
+    <h2>管理后台</h2>
+    <p>AI视觉创作者部落 · 内容管理系统</p>
+    <input type="email" id="adminEmail" placeholder="管理员邮箱" value="admin@vacat.cc">
+    <input type="password" id="adminPassword" placeholder="密码" value="admin123">
+    <button class="btn btn-gold" onclick="adminLogin()">登录管理后台</button>
+    <div id="loginError" style="color:#EF4444;margin-top:12px;font-size:13px"></div>
+    <div style="margin-top:20px;font-size:12px;color:var(--text-muted)">默认：admin@vacat.cc / admin123</div>
+  </div>
+  <div id="adminPanel" class="hidden">
+    <div class="admin-layout">
+      <div class="sidebar">
+        <div class="sidebar-header">
+          <div class="sidebar-logo">VACAT</div>
+          <div class="sidebar-title">管理后台</div>
+        </div>
+        <div class="sidebar-nav">
+          <div class="tab-sub-toggle open" onclick="toggleContentSub()"><span class="tab-icon">📝</span> 页面内容<span class="sub-arrow">▸</span></div>
+          <div class="sub-menu open" id="contentSubMenu">
+            <div class="tab sub-tab active" onclick="switchContentSub('home',this);if(event)event.stopPropagation&&event.stopPropagation()"><span class="tab-icon">📄</span> 首页</div>
+            <div class="tab sub-tab" onclick="switchContentSub('vacat',this);if(event)event.stopPropagation&&event.stopPropagation()"><span class="tab-icon">🏆</span> 瓦卡奖</div>
+            <div class="tab sub-tab" onclick="switchContentMoments(this);if(event)event.stopPropagation&&event.stopPropagation()"><span class="tab-icon">📸</span> 精彩瞬间</div>
+            <div class="tab sub-tab" onclick="switchContentSub('events',this);if(event)event.stopPropagation&&event.stopPropagation()"><span class="tab-icon">📅</span> 活动</div>
+            <div class="tab sub-tab" onclick="switchContentSub('about',this);if(event)event.stopPropagation&&event.stopPropagation()"><span class="tab-icon">ℹ️</span> 关于</div>
+          </div>
+          <div class="tab" onclick="switchTab('creators',this)"><span class="tab-icon">👥</span> 创作者</div>
+          <div class="tab" onclick="switchTab('works',this)"><span class="tab-icon">🖼</span> 作品</div>
+          <div class="tab" onclick="switchTab('referrals',this)"><span class="tab-icon">📋</span> 引荐</div>
+          <div class="tab" onclick="switchTab('users',this)"><span class="tab-icon">👤</span> 用户</div>
+          <div class="tab" onclick="switchTab('moments',this)"><span class="tab-icon">📸</span> 精彩瞬间</div>
+          <div class="tab" onclick="switchTab('dashboard',this)"><span class="tab-icon">📊</span> 数据统计</div>
+          <div class="sidebar-ext-link" onclick="window.open('/','_blank')"><span class="tab-icon">🔗</span> 前往瓦卡奖</div>
+        </div>
+        <div class="sidebar-footer">
+          <div class="user-info">
+            <span id="adminName">管理员</span>
+            <button class="btn btn-ghost btn-sm" onclick="adminLogout()">退出</button>
+          </div>
+        </div>
+      </div>
+      <div class="main-content">
+    <div id="tab-creators" class="tab-content">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+        <span class="text-muted" id="creatorCount">0 位</span>
+        <button class="btn btn-gold btn-sm" onclick="showAddCreator()">+ 添加</button>
+      </div>
+      <div id="addCreatorForm" class="card hidden">
+        <h3>添加创作者</h3>
+        <div class="form-row">
+          <div class="form-group"><label>名称 *</label><input id="c_name" placeholder="创作者名称"></div>
+          <div class="form-group"><label>头像字符（未上传图片时使用）</label><input id="c_avatar" placeholder="单字，如：星"></div>
+          <div class="form-group"><label>头像图片（非必填）</label><input type="file" id="c_avatar_file" accept="image/*" onchange="uploadCreatorAvatar(this)" style="font-size:13px">
+            <p style="font-size:11px;color:var(--text-muted);margin-top:2px">上传图片后自动替换为图片头像，不上传则使用左侧头像字符</p>
+            <div id="c_avatar_preview" style="margin-top:6px;display:none"><img id="c_avatar_img" style="width:48px;height:48px;border-radius:50%;object-fit:cover;border:2px solid var(--border)"></div>
+          </div>
+          <div class="form-group"><label>等级</label><select id="c_level"><option value="explorer">Explorer</option><option value="dreamer" selected>Dreamer</option><option value="creator">Creator</option></select></div>
+          <div class="form-group"><label>状态</label><select id="c_status"><option value="active">接单中</option><option value="inactive">暂停接单</option></select></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>擅长方向（逗号分隔）</label><input id="c_specialty" placeholder="如: AI视频,概念设计"></div>
+          <div class="form-group"><label>作品数</label><input id="c_works" type="number" value="0"></div>
+          <div class="form-group"><label>获赞数</label><input id="c_likes" type="number" value="0"></div>
+        </div>
+        <div class="form-group"><label>简介</label><textarea id="c_bio" placeholder="一句话简介"></textarea></div>
+        <div class="action-bar">
+          <button class="btn btn-ghost btn-sm" onclick="hideAddCreator()">取消</button>
+          <button class="btn btn-gold btn-sm" onclick="saveCreator()">保存</button>
+        </div>
+      </div>
+      <div class="card"><div class="table-wrap"><table id="creatorsTable"><thead><tr><th>ID</th><th>名称</th><th>等级</th><th>方向</th><th>状态</th><th>作品</th><th>获赞</th><th>操作</th></tr></thead><tbody></tbody></table></div></div>
+    </div>
+    <div id="tab-works" class="tab-content">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+        <span class="text-muted" id="worksCount">0 个</span>
+        <button class="btn btn-gold btn-sm" onclick="showAddWork()">+ 上传作品</button>
+      </div>
+      <div id="addWorkForm" class="card hidden">
+        <h3 id="workFormTitle">上传作品</h3>
+        <div style="margin-bottom:16px">
+          <div style="display:flex;gap:8px">
+            <button class="btn btn-ghost btn-sm" id="tabUpload" onclick="switchWorkType('upload')" style="background:rgba(202,254,97,0.15);color:var(--brand-gold)">上传图片</button>
+            <button class="btn btn-ghost btn-sm" id="tabBilibili" onclick="switchWorkType('bilibili')">B站视频</button>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>作品标题 *</label><input id="w_title" placeholder="作品名称"></div>
+          <div class="form-group"><label>所属创作者 *</label><select id="w_creator_id"></select></div>
+        </div>
+        <div class="form-group"><label>作品描述</label><textarea id="w_desc" placeholder="简要描述作品"></textarea></div>
+        <div class="form-row"><div class="form-group"><label>届数</label><select id="w_edition"><option value="">未选择</option><option value="第二届">第二届（2025）</option><option value="第一届">第一届（2024）</option></select></div><div class="form-group"><label>获奖类型</label><select id="w_award"><option value="">未获奖</option><option value="金奖">金奖</option><option value="银奖">银奖</option><option value="铜奖">铜奖</option><option value="优秀奖">优秀奖</option></select></div><div class="form-group"><label>赛道类型</label><select id="w_track"><option value="">未分类</option><option value="原创IP影片">原创IP影片</option><option value="经典IP改编">经典IP改编</option><option value="视觉艺术影片">视觉艺术影片</option><option value="创意宣传影片">创意宣传影片</option></select></div></div>
+        <div id="uploadType"><div class="form-group"><label>上传封面图</label><input type="file" id="w_file" accept="image/*"></div></div>
+        <div id="bilibiliType" style="display:none">
+          <div class="form-row">
+            <div class="form-group"><label>B站视频BV号 *</label>
+              <div style="display:flex;gap:8px"><input id="w_bvid" placeholder="如: BV1gvJG6qEBq" style="flex:1"><button class="btn btn-ghost btn-sm" onclick="fetchBilibiliInfo()">获取信息</button></div>
+            </div>
+          </div>
+          <div id="bilibiliPreview" style="display:none;gap:16px;align-items:flex-start;margin-bottom:12px;padding:12px;background:var(--bg-input);border-radius:6px">
+            <img id="biliCover" style="width:160px;border-radius:4px">
+            <div><strong id="biliTitle" style="display:block;margin-bottom:4px"></strong><span class="text-muted" id="biliDesc" style="font-size:12px"></span></div>
+          </div>
+          <div class="form-group"><label>自定义封面图</label><input type="file" accept="image/*" onchange="uploadBiliCover(this)" style="font-size:13px"><p style="font-size:11px;color:var(--text-muted);margin-top:2px">上传图片作为B站作品的封面图，上传后自动替换预览</p></div>
+        </div>
+        <div class="action-bar"><button class="btn btn-ghost btn-sm" onclick="hideAddWork()">取消</button><button class="btn btn-gold btn-sm" onclick="saveWork()">保存作品</button></div>
+      </div>
+      <div class="card"><div class="table-wrap"><table id="worksTable"><thead><tr><th>ID</th><th>预览</th><th>标题</th><th>创作者</th><th>类型</th><th>日期</th><th>操作</th></tr></thead><tbody></tbody></table></div></div>
+    </div>
+    <div id="tab-content" class="tab-content active">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+        <span class="text-muted">编辑各页面文字内容，保存后前端自动更新</span>
+        <button class="btn btn-gold btn-sm" onclick="saveAllContent()">保存全部内容</button>
+      </div>
+      <div id="contentEditor"><div style="text-align:center;padding:40px;color:var(--text3)">加载中...</div></div>
+    </div>
+    <div id="tab-dashboard" class="tab-content">
+      <div style="display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap;align-items:center">
+        <select id="statsTimeFilter" onchange="loadDashboard()" style="background:var(--bg2);border:1px solid var(--border);border-radius:6px;color:var(--text);padding:8px 12px;font-size:13px">
+          <option value="7">近7天</option>
+          <option value="30" selected>近一月</option>
+          <option value="90">近三月</option>
+          <option value="365">近一年</option>
+        </select>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px" id="statsCards">
+        <div class="card" style="text-align:center;padding:28px 20px"><div style="font-size:28px;font-weight:700;color:var(--gold)" id="statTotalCreators">-</div><div style="font-size:13px;color:var(--text-muted);margin-top:4px">创作者总数</div></div>
+        <div class="card" style="text-align:center;padding:28px 20px"><div style="font-size:28px;font-weight:700;color:var(--gold)" id="statNewCreators">-</div><div style="font-size:13px;color:var(--text-muted);margin-top:4px">新增创作者</div></div>
+        <div class="card" style="text-align:center;padding:28px 20px"><div style="font-size:28px;font-weight:700;color:var(--gold)" id="statWorks2nd">-</div><div style="font-size:13px;color:var(--text-muted);margin-top:4px">本届投稿作品（第二届）</div></div>
+      </div>
+      <div style="margin-top:12px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+        <div class="card" style="text-align:center;padding:20px"><div style="font-size:22px;font-weight:700;color:var(--text2)" id="statWorks1st">-</div><div style="font-size:12px;color:var(--text-muted);margin-top:2px">第一届作品</div></div>
+        <div class="card" style="text-align:center;padding:20px"><div style="font-size:22px;font-weight:700;color:var(--text2)" id="statTotalWorks">-</div><div style="font-size:12px;color:var(--text-muted);margin-top:2px">作品总数</div></div>
+      </div>
+    </div>
+    <div id="tab-referrals" class="tab-content">
+      <div class="card">
+        <h3>引荐申请记录</h3>
+        <div class="table-wrap"><table id="referralsTable"><thead><tr><th>ID</th><th>企业</th><th>联系人</th><th>联系方式</th><th>方向</th><th>预算</th><th>时间</th></tr></thead><tbody></tbody></table></div>
+        <div id="noReferrals" class="text-center mt-12" style="display:none"><span class="text-muted">暂无记录</span></div>
+      </div>
+    </div>
+    <div id="tab-moments" class="tab-content">
+      <h2>精彩瞬间管理</h2>
+      <div style="margin-bottom:20px;padding:20px;background:var(--bg-card);border-radius:12px;border:1px solid var(--border-color)">
+        <h4 style="margin-bottom:12px;font-size:14px;color:var(--brand-gold)">上传新图片</h4>
+        <div class="form-row">
+          <div class="form-group">
+            <label>图片标题</label>
+            <input id="momentTitleInput" placeholder="请输入标题">
+          </div>
+          <div class="form-group">
+            <label>选择图片</label>
+            <input id="momentFileInput" type="file" accept="image/*" style="padding:6px;font-size:13px">
+          </div>
+        </div>
+        <button class="btn btn-gold btn-sm" onclick="uploadMoment()">📤 上传</button>
+        <span id="momentUploadStatus" style="margin-left:12px;font-size:12px;color:var(--text-muted)"></span>
+      </div>
+      <div style="margin-bottom:12px;display:flex;justify-content:space-between;align-items:center">
+        <span id="momentCount" style="font-size:13px;color:var(--text-muted)">共 0 张</span>
+      </div>
+      <div id="momentGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px"></div>
+    </div>
+    <div id="tab-users" class="tab-content">
+      <div class="card">
+        <h3>注册用户</h3>
+        <div class="table-wrap"><table id="usersTable"><thead><tr><th>ID</th><th>名称</th><th>邮箱</th><th>角色</th><th>注册时间</th></tr></thead><tbody></tbody></table></div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+<script>
+
+var API = '';
+var editingId = null, editingWorkId = null;
+var contentSubFilter = 'home';
+
+function toggleContentSub() {
+  var sub = document.getElementById('contentSubMenu');
+  var toggle = document.querySelector('.tab-sub-toggle');
+  var open = sub.classList.toggle('open');
+  toggle.classList.toggle('open');
+  if (open) {
+    document.querySelectorAll('.sidebar-nav .tab').forEach(function(t){t.classList.remove('active')});
+    document.querySelectorAll('.tab-content').forEach(function(t){t.classList.remove('active')});
+    document.getElementById('tab-content').classList.add('active');
+    var firstSub = sub.querySelector('.sub-tab');
+    if (firstSub && !firstSub.classList.contains('active')) {
+      firstSub.click();
+    }
+  } else {
+    // Collapse: go back to previously active main tab or just hide content
+  }
+}
+
+function switchContentSub(name, el) {
+  contentSubFilter = name;
+  document.querySelectorAll('.sub-tab').forEach(function(t){t.classList.remove('active')});
+  if (el) el.classList.add('active');
+  // Ensure the content tab is visible
+  document.querySelectorAll('.sidebar-nav .tab').forEach(function(t){t.classList.remove('active')});
+  document.querySelectorAll('.tab-content').forEach(function(t){t.classList.remove('active')});
+  document.getElementById('tab-content').classList.add('active');
+  // Reload with filter
+  loadContent();
+}
+
+function switchContentMoments(el) {
+  document.querySelectorAll('.sub-tab').forEach(function(t){t.classList.remove('active')});
+  if (el) el.classList.add('active');
+  document.querySelectorAll('.sidebar-nav .tab').forEach(function(t){t.classList.remove('active')});
+  document.querySelectorAll('.tab-content').forEach(function(t){t.classList.remove('active')});
+  document.getElementById('tab-moments').classList.add('active');
+  loadMoments();
+}
+
+function getToken() { return localStorage.getItem('admin_token'); }
+
+async function api(path, opts) {
+  var h = {'Content-Type':'application/json'};
+  if (getToken()) h['Authorization'] = 'Bearer ' + getToken();
+  var r = await fetch(API + path, {...opts, headers:{...h, ...((opts&&opts.headers)||{})}});
+  return r.json();
+}
+
+function adminLogin() {
+  var em = document.getElementById('adminEmail').value;
+  var pw = document.getElementById('adminPassword').value;
+  fetch(API + '/api/login', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({email:em,password:pw})})
+    .then(function(r){return r.json()}).then(function(d){
+      if (d.token) {
+        localStorage.setItem('admin_token', d.token);
+        document.getElementById('adminPanel').classList.remove('hidden');
+        document.getElementById('loginScreen').style.display = 'none';
+        document.getElementById('loginError').textContent = '';
+        document.getElementById('adminName').textContent = d.user.name || '管理员';
+        loadAll();
+      } else {
+        document.getElementById('loginError').textContent = '登录失败：' + (d.error||'邮箱或密码错误');
+      }
+    });
+}
+
+function adminLogout() {
+  localStorage.removeItem('admin_token');
+  document.getElementById('adminPanel').classList.add('hidden');
+  document.getElementById('loginScreen').style.display = 'block';
+}
+
+function switchTab(name, el) {
+  document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active')});
+  document.querySelectorAll('.tab-content').forEach(function(t){t.classList.remove('active')});
+  if (el) el.classList.add('active');
+  document.getElementById('tab-' + name).classList.add('active');
+  if (name === 'works') loadWorks();
+            if (name === 'content') loadContent();
+  if (name === 'dashboard') loadDashboard();
+}
+
+function switchWorkType(type) {
+  workType = type;
+  document.getElementById('tabUpload').style.background = type==='upload' ? 'rgba(202,254,97,0.15)' : '';
+  document.getElementById('tabUpload').style.color = type==='upload' ? 'var(--brand-gold)' : '';
+  document.getElementById('tabBilibili').style.background = type==='bilibili' ? 'rgba(202,254,97,0.15)' : '';
+  document.getElementById('tabBilibili').style.color = type==='bilibili' ? 'var(--brand-gold)' : '';
+  document.getElementById('uploadType').style.display = type==='upload' ? '' : 'none';
+  document.getElementById('bilibiliType').style.display = type==='bilibili' ? '' : 'none';
+}
+
+async function fetchBilibiliInfo() {
+  var bv = document.getElementById('w_bvid').value.trim(); bv = bv.match(/BV[0-9A-Za-z]{10,}/)?.[0] || bv;
+  if (!bv) return alert('请输入BV号');
+  if (!bv.startsWith('BV')) bv = 'BV' + bv;
+  
+  var d = await api('/api/works/bilibili-info?bvid=' + bv);
+  if (d.success) {
+    document.getElementById('bilibiliPreview').style.display = 'flex';
+    document.getElementById('biliCover').src = d.cover;
+    document.getElementById('biliTitle').textContent = d.title;
+    document.getElementById('biliDesc').textContent = d.desc;
+    if (!document.getElementById('w_title').value) document.getElementById('w_title').value = d.title;
+    if (!document.getElementById('w_desc').value) document.getElementById('w_desc').value = d.desc;
+  } else {
+    alert('获取失败：' + (d.error||'请检查BV号'));
+  }
+}
+
+async function loadAll() { loadCreators(); loadWorks(); loadReferrals(); loadUsers(); }
+
+// ===== CREATORS =====
+async function loadCreators() {
+  var data = await api('/api/admin/creators');
+  var tbody = document.querySelector('#creatorsTable tbody');
+  tbody.innerHTML = '';
+  document.getElementById('creatorCount').textContent = data.length + ' 位创作者';
+  var ln = {explorer:'Explorer',dreamer:'Dreamer',creator:'Creator'};
+  data.forEach(function(c){
+    tbody.innerHTML += '<tr><td>'+c.id+'</td><td><strong>'+c.name+'</strong></td><td><span class="badge badge-'+c.level+'">'+ln[c.level]+'</span></td><td>'+(c.tags||'-')+'</td><td><span class="status-dot '+(c.status||'active')+'"></span>'+(c.status=='active'?'接单中':'暂停')+'</td><td>'+c.works_count+'</td><td>'+c.likes+'</td><td><div class="action-bar"><button class="btn btn-ghost btn-sm" onclick="editCreator('+c.id+')">编辑</button><button class="btn btn-danger btn-sm" onclick="deleteCreator('+c.id+')">删除</button></div></td></tr>';
+  });
+}
+
+function showAddCreator() {
+  editingId = null;
+  document.getElementById('addCreatorForm').classList.remove('hidden');
+  ['c_name','c_avatar','c_specialty','c_bio'].forEach(function(id){document.getElementById(id).value=''});
+  document.getElementById('c_level').value='dreamer';
+  document.getElementById('c_status').value='active';
+  document.getElementById('c_works').value='0';
+  document.getElementById('c_likes').value='0';
+}
+function hideAddCreator() { document.getElementById('addCreatorForm').classList.add('hidden'); }
+
+async function editCreator(id) {
+  showAddCreator();
+  editingId = id;
+  var data = await api('/api/creators/' + id);
+  if (data.id) {
+    document.getElementById('c_name').value = data.name||'';
+    document.getElementById('c_avatar').value = data.avatar||'';
+    document.getElementById('c_level').value = data.level||'dreamer';
+    document.getElementById('c_status').value = data.status||'active';
+    document.getElementById('c_specialty').value = data.tags||'';
+    document.getElementById('c_bio').value = data.bio||'';
+    document.getElementById('c_works').value = data.works_count||0;
+    document.getElementById('c_likes').value = data.likes||0;
+  }
+}
+
+async function saveCreator() {
+  var body = { name: document.getElementById('c_name').value, avatar: document.getElementById('c_avatar').value, level: document.getElementById('c_level').value, status: document.getElementById('c_status').value, specialty: document.getElementById('c_specialty').value, tags: document.getElementById('c_specialty').value, bio: document.getElementById('c_bio').value, works_count: parseInt(document.getElementById('c_works').value)||0, likes: parseInt(document.getElementById('c_likes').value)||0 };
+  if (!body.name) return alert('名称不能为空');
+  var r = editingId ? await api('/api/admin/creators/'+editingId, {method:'PUT',body:JSON.stringify(body)}) : await api('/api/admin/creators', {method:'POST',body:JSON.stringify(body)});
+  if (r.success) { hideAddCreator(); loadCreators(); } else alert('保存失败');
+}
+
+async function deleteCreator(id) {
+  if (!confirm('确定删除？')) return;
+  var r = await api('/api/admin/creators/'+id, {method:'DELETE'});
+  if (r.success) loadCreators();
+}
+
+// ===== WORKS =====
+async function loadWorks() {
+  var data = await api('/api/works/admin/works');
+  var tbody = document.querySelector('#worksTable tbody');
+  tbody.innerHTML = '';
+  document.getElementById('worksCount').textContent = data.length + ' 个作品';
+  data.forEach(function(w){
+    var thumb = w.image_url ? '<img src="'+w.image_url+'" style="width:50px;height:35px;object-fit:cover;border-radius:4px">' : '<span style="color:var(--text-muted);font-size:18px">▶</span>';
+    if (!w.image_url && w.embed_type==='bilibili') thumb = '<span style="color:var(--text-muted);font-size:11px">B站</span>';
+    var typeLabel = w.embed_type==='bilibili' ? '<span style="color:var(--brand-gold-light)">B站</span>' : '<span style="color:var(--text-muted)">图片</span>';
+    tbody.innerHTML += '<tr><td>'+w.id+'</td><td>'+thumb+'</td><td><strong>'+w.title+'</strong></td><td>'+(w.creator_name||'')+'</td><td>'+typeLabel+'</td><td>'+(w.created_at||'')+'</td><td><div class="action-bar"><button class="btn btn-ghost btn-sm" onclick="editWork('+w.id+')">编辑</button><button class="btn btn-danger btn-sm" onclick="deleteWork('+w.id+')">删</button></div></td></tr>';
+  });
+}
+
+async function populateCreatorSelect() {
+  var sel = document.getElementById('w_creator_id');
+  var creators = await api('/api/admin/creators');
+  sel.innerHTML = creators.map(function(c){return '<option value="'+c.id+'">'+c.name+'</option>'}).join('');
+}
+
+function showAddWork() {
+  editingWorkId = null;
+  document.getElementById('addWorkForm').classList.remove('hidden');
+  document.getElementById('workFormTitle').textContent = '上传作品';
+  document.getElementById('w_title').value = '';
+  document.getElementById('w_desc').value = '';
+  document.getElementById('w_file').value = '';
+  document.getElementById('w_bvid').value = '';
+  document.getElementById('bilibiliPreview').style.display = 'none';
+  switchWorkType('upload');
+  populateCreatorSelect();
+}
+function hideAddWork() { document.getElementById('addWorkForm').classList.add('hidden'); }
+
+async function editWork(id) {
+  showAddWork();
+  editingWorkId = id;
+  document.getElementById('workFormTitle').textContent = '编辑作品';
+  var data = await api('/api/works/admin/works');
+  var w = data.find(function(x){return x.id==id});
+  if (w) {
+    document.getElementById('w_title').value = w.title||'';
+    document.getElementById('w_desc').value = w.description||'';
+    document.getElementById('w_creator_id').value = w.creator_id||''; document.getElementById('w_edition').value = w.edition||''; document.getElementById('w_award').value = w.award||''; document.getElementById('w_track').value = w.track||'';
+    if (w.embed_type==='bilibili') {
+      switchWorkType('bilibili');
+      document.getElementById('w_bvid').value = w.embed_id||'';
+      if (w.image_url) {
+        document.getElementById('bilibiliPreview').style.display = 'flex';
+        document.getElementById('biliCover').src = w.image_url;
+        document.getElementById('biliTitle').textContent = w.title;
+        document.getElementById('biliDesc').textContent = w.description;
+      }
+    }
+  }
+}
+
+async function saveWork() {
+  var title = document.getElementById('w_title').value;
+  var creator_id = document.getElementById('w_creator_id').value;
+  if (!title || !creator_id) return alert('标题和创作者不能为空');
+
+  var fd = new FormData();
+  fd.append('title', title);
+  fd.append('description', document.getElementById('w_desc').value);
+  fd.append('creator_id', creator_id);
+  fd.append('embed_type', workType);
+
+  if (workType === 'bilibili') {
+    fd.append('embed_id', document.getElementById('w_bvid').value.trim());
+    // Auto-use bilibili cover as thumbnail if available
+    var cover = document.getElementById('biliCover').src;
+    fd.append('edition', document.getElementById('w_edition').value); fd.append('award', document.getElementById('w_award').value); fd.append('track', document.getElementById('w_track').value); if (cover && !cover.startsWith('file:')) fd.append('image_url', cover);
+  } else {
+    var file = document.getElementById('w_file').files[0];
+    if (file) fd.append('file', file);
+  }
+
+  var url = editingWorkId ? '/api/works/admin/works/'+editingWorkId : '/api/works/admin/works';
+  var method = editingWorkId ? 'PUT' : 'POST';
+
+  try {
+    var r = await fetch(url, {method: method, headers: {'Authorization': 'Bearer ' + getToken()}, body: fd}).then(function(r){return r.json()});
+    if (r.success) { hideAddWork(); loadWorks(); } else alert('保存失败');
+  } catch(e) { alert('保存失败'); }
+}
+
+async function deleteWork(id) {
+  if (!confirm('确定删除？')) return;
+  var r = await api('/api/works/admin/works/'+id, {method:'DELETE'});
+  if (r.success) loadWorks();
+}
+
+// ===== REFERRALS =====
+async function loadReferrals() {
+  var data = await api('/api/admin/referrals');
+  var tbody = document.querySelector('#referralsTable tbody');
+  tbody.innerHTML = '';
+  var noref = document.getElementById('noReferrals');
+  if (data.length === 0) { noref.style.display = 'block'; return; }
+  noref.style.display = 'none';
+  data.forEach(function(r){
+    tbody.innerHTML += '<tr><td>'+r.id+'</td><td><strong>'+r.company+'</strong></td><td>'+r.contact_name+'</td><td>'+r.contact_info+'</td><td>'+r.direction+'</td><td>'+r.budget+'</td><td>'+(r.created_at||'').substring(0,10)+'</td></tr>';
+  });
+}
+
+
+// ===== CONTENT =====
+var contentData = null;
+var contentFields = {
+  "首页": {"home.hero_badge":"顶部徽章","home.hero_title":"主标题 (支持HTML)","home.hero_subtitle":"副标题","home.stats_works":"作品数","home.stats_works_label":"作品数标签","home.stats_finalists":"入围数","home.stats_finalists_label":"入围数标签","home.stats_schools":"高校数","home.stats_schools_label":"高校数标签",},
+  "首页banner": {"home.hero_bg_image":"首页banner图片URL"},
+  "首页-加入部落": {"home.cta_title":"CTA标题","home.cta_text":"CTA描述","home.cta_button":"CTA按钮"},
+  "瓦卡奖-首屏轮播": {"vacat.carousel_image":"轮播图(首屏横幅)"},
+  "瓦卡奖-页面标题": {"vacat.title":"页面标题","vacat.subtitle":"副标题","vacat.description":"描述"},
+  "瓦卡奖-关于瓦卡奖": {"vacat.intro_title":"关于标题","vacat.intro_text":"关于介绍","vacat.about_image":"关于配图"},
+  "瓦卡奖-核心成果": {"vacat.achievement_1_title":"成就1标题","vacat.achievement_1_desc":"成就1描述(支持HTML)","vacat.achievement_2_title":"成就2标题","vacat.achievement_2_desc":"成就2描述(支持HTML)","vacat.achievement_3_title":"成就3标题","vacat.achievement_3_desc":"成就3描述(支持HTML)","vacat.achievement_4_title":"成就4标题","vacat.achievement_4_desc":"成就4描述(支持HTML)","vacat.achievement_5_title":"成就5标题","vacat.achievement_5_desc":"成就5描述(支持HTML)"},
+  "瓦卡奖-大赛数据": {"vacat.awards_works":"投稿数","vacat.awards_finalists":"入围数","vacat.awards_schools":"高校数"},
+  "瓦卡奖-组织架构": {"vacat.org_guide":"指导单位","vacat.org_host":"主办单位","vacat.org_organizer":"承办单位","vacat.org_coorganizer":"协办单位"},
+  "瓦卡奖-专业评审团": {"vacat.judges_title":"评审团标题","vacat.judge_1_name":"评委1-名称","vacat.judge_1_title":"评委1-头衔","vacat.judge_1_avatar":"评委1-头像URL","vacat.judge_2_name":"评委2-名称","vacat.judge_2_title":"评委2-头衔","vacat.judge_2_avatar":"评委2-头像URL","vacat.judge_3_name":"评委3-名称","vacat.judge_3_title":"评委3-头衔","vacat.judge_3_avatar":"评委3-头像URL","vacat.judge_4_name":"评委4-名称","vacat.judge_4_title":"评委4-头衔","vacat.judge_4_avatar":"评委4-头像URL","vacat.judge_5_name":"评委5-名称","vacat.judge_5_title":"评委5-头衔","vacat.judge_5_avatar":"评委5-头像URL","vacat.judge_6_name":"评委6-名称","vacat.judge_6_title":"评委6-头衔","vacat.judge_6_avatar":"评委6-头像URL","vacat.judge_7_name":"评委7-名称","vacat.judge_7_title":"评委7-头衔","vacat.judge_7_avatar":"评委7-头像URL"},"瓦卡奖-行动起来": {"vacat.cta_title":"CTA标题","vacat.cta_text":"CTA描述"},
+  "活动": {"events.title":"页面标题","events.subtitle":"副标题","events.section_title":"区块标题","events.day1_title":"第一天标题","events.day1_schedule":"第一天日程","events.day2_title":"第二天标题","events.day2_schedule":"第二天日程","events.day3_title":"第三天标题","events.day3_schedule":"第三天日程","events.exhibition_title":"展览标题","events.exhibition_text":"展览描述"},
+  "关于": {"about.title":"页面标题","about.subtitle":"副标题","about.mission_title":"使命标题","about.mission_text":"使命描述","about.org_title":"组织架构标题","about.org_text":"组织架构","about.contact_title":"联系我们标题","about.contact_office":"办公室","about.contact_email":"邮箱","about.contact_wechat":"微信"}
+};
+
+async function loadContent() {
+  var data = await api('/api/admin/content');
+  contentData = data;
+  var editor = document.getElementById('contentEditor');
+  editor.innerHTML = '';
+  var subFilters = {home:'首页',vacat:'瓦卡奖',events:'活动',about:'关于'};
+  var filterPrefix = subFilters[contentSubFilter] || '';
+  var keys = Object.keys(contentFields).filter(function(k){return !filterPrefix || k.indexOf(filterPrefix)===0});
+  keys.forEach(function(pn, idx) {
+    var fields = contentFields[pn];
+    var sec = '<div class="card"><h3 style="cursor:pointer" onclick="this.nextElementSibling.classList.toggle(\'hidden\')">' + (idx+1) + '. ' + pn + ' <span style="font-size:12px;color:var(--text3)">点击展开</span></h3><div' + (idx>0?' class=\"hidden\"':'') + '">';
+    Object.keys(fields).forEach(function(k) {
+      var label = fields[k];
+      var val = (function(){var parts=k.split('.'),cur=data;for(var i=0;i<parts.length;i++){if(cur&&cur[parts[i]]!==undefined)cur=cur[parts[i]];else return '';}return typeof cur==='string'?cur:'';})();
+      var isLong = val.length > 60 || k.indexOf('schedule')>=0 || k.indexOf('_text')>=0;
+      var isImage = k.indexOf('image')>=0 || k.indexOf('cover')>=0 || k.indexOf('bg_image')>=0 || k.indexOf('avatar')>=0;
+      var id = 'c-' + k.split('.').join('_');
+      var escaped = (function(s){return String(s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');})(val);
+      if (isLong) sec += '<div class="form-group" style="margin-top:12px"><label>' + label + ' <span style="font-size:11px;color:var(--text3)">(' + k + ')</span></label><textarea id="' + id + '" rows="4">' + escaped + '</textarea></div>';
+      else if (isImage) {
+        sec += '<div class="form-group" style="margin-top:12px"><label>' + label + ' <span style="font-size:11px;color:var(--text3)">(' + k + ')</span></label><div style="display:flex;gap:8px"><input id="' + id + '" value="' + escaped + '" style="flex:1;font-size:13px" placeholder="输入图片URL或上传"><input type="file" accept="image/*" onchange="uploadContentImg(this)" style="font-size:13px"></div>';
+        if (val) sec += '<div style="margin-top:8px"><img src="' + escaped + '" style="max-width:240px;max-height:160px;border-radius:6px;border:1px solid var(--border);object-fit:cover"></div>';
+        sec += '<p style="font-size:11px;color:var(--text-muted);margin-top:4px">📁 点击右侧"选择文件"上传本地图片，上传后自动填入URL</p></div>';
+      }
+      else sec += '<div class="form-group" style="margin-top:12px"><label>' + label + ' <span style="font-size:11px;color:var(--text3)">(' + k + ')</span></label><input id="' + id + '" value="' + escaped + '"></div>';
+    });
+    sec += '</div></div>';
+    editor.innerHTML += sec;
+  });
+}
+
+window.saveAllContent = async function() {
+  var u = {};
+  Object.keys(contentFields).forEach(function(pn) {
+    Object.keys(contentFields[pn]).forEach(function(k) {
+      var el = document.getElementById('c-' + k.split('.').join('_'));
+      if (el) {
+        var parts = k.split('.'), cur = u;
+        for (var i=0;i<parts.length-1;i++) { if(!cur[parts[i]]) cur[parts[i]]={}; cur=cur[parts[i]]; }
+        cur[parts[parts.length-1]] = el.value;
+      }
+    });
+  });
+  var r = await api('/api/admin/content', {method:'PUT', body:JSON.stringify(u)});
+  alert(r.success ? '保存成功！刷新前端页面即可看到更新' : '保存失败');
+};
+
+// ===== USERS =====
+async function loadUsers() {
+  var data = await api('/api/admin/users');
+  var tbody = document.querySelector('#usersTable tbody');
+  tbody.innerHTML = '';
+  data.forEach(function(u){
+    tbody.innerHTML += '<tr><td>'+u.id+'</td><td>'+u.name+'</td><td>'+u.email+'</td><td><span class="badge badge-'+(u.role==='admin'?'super':'member')+'">'+(u.role==='admin'?'管理员':'会员')+'</span></td><td>'+(u.created_at||'').substring(0,10)+'</td></tr>';
+  });
+}
+
+if (getToken()) {
+  fetch(API + '/api/profile', {headers:{'Authorization':'Bearer '+getToken()}})
+    .then(function(r){return r.json()}).then(function(d){
+      if (d.error) { localStorage.removeItem('admin_token'); return; }
+      document.getElementById('adminPanel').classList.remove('hidden');
+      document.getElementById('loginScreen').style.display = 'none';
+      document.getElementById('adminName').textContent = d.name || '管理员';
+      loadAll();
+    });
+}
+
+
+window.uploadContentImg = async function(input) {
+  var file = input.files[0];
+  if (!file) return;
+  var fd = new FormData();
+  fd.append('file', file);
+  try {
+    var r = await fetch('/api/admin/upload', {method:'POST', headers:{'Authorization':'Bearer '+getToken()}, body:fd});
+    var d = await r.json();
+    if (d.url) {
+      var urlInput = input.previousElementSibling;
+      if (urlInput) urlInput.value = d.url;
+      var preview = input.closest('.form-group').querySelector('img');
+      if (preview) preview.src = d.url;
+      else {
+        var img = document.createElement('img');
+        img.src = d.url;
+        img.style.cssText = 'max-width:240px;max-height:160px;border-radius:6px;border:1px solid var(--border);object-fit:cover;margin-top:8px';
+        input.closest('.form-group').appendChild(img);
+      }
+    } else {
+      alert('\u4e0a\u4f20\u5931\u8d25: ' + (d.error||'\u672a\u77e5\u9519\u8bef'));
+    }
+  } catch(e) { alert('\u4e0a\u4f20\u5931\u8d25: ' + e.message); }
+};
+window.uploadBiliCover = async function(input) {
+  var file = input.files[0];
+  if (!file) return;
+  var fd = new FormData();
+  fd.append('file', file);
+  try {
+    var r = await fetch('/api/admin/upload', {method:'POST', headers:{'Authorization':'Bearer '+getToken()}, body:fd});
+    var d = await r.json();
+    if (d.url) {
+      document.getElementById('biliCover').src = d.url;
+      document.getElementById('bilibiliPreview').style.display = 'flex';
+    } else {
+      alert('上传失败: ' + (d.error||'未知错误'));
+    }
+  } catch(e) { alert('上传失败: ' + e.message); }
+};
+window.uploadCreatorAvatar = async function(input) {
+  var file = input.files[0];
+  if (!file) return;
+  var fd = new FormData();
+  fd.append('file', file);
+  try {
+    var r = await fetch('/api/admin/upload', {method:'POST', headers:{'Authorization':'Bearer '+getToken()}, body:fd});
+    var d = await r.json();
+    if (d.url) {
+      document.getElementById('c_avatar').value = d.url;
+      document.getElementById('c_avatar_img').src = d.url;
+      document.getElementById('c_avatar_preview').style.display = 'block';
+    } else {
+      alert('上传失败: ' + (d.error||'未知错误'));
+    }
+  } catch(e) { alert('上传失败: ' + e.message); }
+};
+
+
+window.loadDashboard = async function() {
+  var days = document.getElementById('statsTimeFilter')?.value || '30';
+  var d = await api('/api/admin/stats?days=' + days);
+  if (d.error) { document.getElementById('statTotalCreators').textContent = 'ERR'; return; }
+  document.getElementById('statTotalCreators').textContent = d.totalCreators || 0;
+  document.getElementById('statNewCreators').textContent = d.newCreators || 0;
+  document.getElementById('statWorks2nd').textContent = d.works2nd || 0;
+  document.getElementById('statWorks1st').textContent = d.works1st || 0;
+  document.getElementById('statTotalWorks').textContent = d.totalWorks || 0;
+};
+</script>
+
+<script>
+// ===== Moments Management =====
+function loadMoments() {
+  var grid = document.getElementById('momentGrid');
+  var count = document.getElementById('momentCount');
+  if (!grid) return;
+  api('/api/admin/moments', {method:'GET'}).then(function(data){
+    if (!Array.isArray(data)) return;
+    count.textContent = '共 ' + data.length + ' 张';
+    if (data.length === 0) {
+      grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text-muted)">暂无精彩瞬间图片，请上传</div>';
+      return;
+    }
+    grid.innerHTML = '';
+    data.forEach(function(m, idx){
+      var card = document.createElement('div');
+      card.style.cssText = 'background:var(--bg-card);border-radius:10px;overflow:hidden;border:1px solid var(--border-color)';
+      card.innerHTML = '<div style="aspect-ratio:16/9;overflow:hidden;background:#111"><img src="' + m.src + '" style="width:100%;height:100%;object-fit:cover;display:block" onerror="this.style.display=\'none\'"></div>' +
+        '<div style="padding:10px;display:flex;flex-direction:column;gap:6px">' +
+        '<input class="moment-title-input" value="' + (m.title||'') + '" data-id="' + m.id + '" style="width:100%;padding:5px 8px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:4px;color:#fff;font-size:12px" placeholder="标题">' +
+        '<div style="display:flex;gap:4px;justify-content:space-between">' +
+        '<div style="display:flex;gap:4px">' +
+        '<input type="number" class="moment-order-input" value="' + (m.order||(idx+1)) + '" data-id="' + m.id + '" style="width:50px;padding:4px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:4px;color:#fff;font-size:11px" placeholder="排序">' +
+        '<button class="btn btn-sm btn-ghost" onclick="saveMoment(' + m.id + ')" style="font-size:11px;padding:3px 10px">保存</button>' +
+        '</div>' +
+        '<button class="btn btn-sm btn-danger" onclick="deleteMoment(' + m.id + ')" style="font-size:11px;padding:3px 10px">删除</button>' +
+        '</div></div>';
+      grid.appendChild(card);
+    });
+  }).catch(function(){});
+}
+
+function uploadMoment() {
+  var fileInput = document.getElementById('momentFileInput');
+  var titleInput = document.getElementById('momentTitleInput');
+  var status = document.getElementById('momentUploadStatus');
+  var file = fileInput.files[0];
+  if (!file) { status.textContent = '请选择图片'; status.style.color = '#EF4444'; return; }
+  var formData = new FormData();
+  formData.append('file', file);
+  if (titleInput.value) formData.append('title', titleInput.value);
+  var h = {};
+  if (getToken()) h['Authorization'] = 'Bearer ' + getToken();
+  status.textContent = '上传中...';
+  fetch(API + '/api/admin/moments/upload', {method:'POST', headers:h, body:formData})
+    .then(function(r){return r.json()})
+    .then(function(d){
+      if (d.success) {
+        status.textContent = '上传成功'; status.style.color = '#10B981';
+        fileInput.value = ''; titleInput.value = '';
+        loadMoments();
+      } else {
+        status.textContent = d.error ? d.error + ' (请检查登录状态)' : '上传失败(请检查文件大小或登录状态)'; status.style.color = '#EF4444';
+      }
+    }).catch(function(){status.textContent = '网络错误';status.style.color='#EF4444';});
+}
+
+function saveMoment(id) {
+  var titleInput = document.querySelector('.moment-title-input[data-id="' + id + '"]');
+  var orderInput = document.querySelector('.moment-order-input[data-id="' + id + '"]');
+  var body = {};
+  if (titleInput) body.title = titleInput.value;
+  if (orderInput) body.order = parseInt(orderInput.value) || 1;
+  api('/api/admin/moments/' + id, {method:'PUT', body:JSON.stringify(body)}).then(function(d){
+    if (d.success) loadMoments();
+  });
+}
+
+function deleteMoment(id) {
+  if (!confirm('确定要删除这张图片吗？')) return;
+  api('/api/admin/moments/' + id, {method:'DELETE'}).then(function(d){
+    if (d.success) loadMoments();
+  });
+}
+
+// Override switchTab to add moments support
+var origSwitchTab = window.switchTab;
+window.switchTab = function(name, el) {
+  origSwitchTab(name, el);
+  if (name === 'moments') loadMoments();
+};
+</script>
+
+</body>
+</html>

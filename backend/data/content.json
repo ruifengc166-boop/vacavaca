@@ -1,0 +1,235 @@
+{
+  "site": {
+    "name": "AI视觉创作者部落",
+    "short_name": "VACAT",
+    "description": "瓦卡奖组委会支持的社区平台"
+  },
+  "home": {
+    "hero_badge": "AI视觉创意大赛官方社区",
+    "hero_title": "AI视觉创作者<span style=\"color:var(--gold)\">部落</span>",
+    "hero_subtitle": "“中国AI创意界第一赛”——全球AI视觉创意大赛（瓦卡奖）官方社区 ",
+    "stats_works": "4,646",
+    "stats_works_label": "第二届投稿作品",
+    "stats_finalists": "76",
+    "stats_finalists_label": "获奖作品",
+    "stats_schools": "92",
+    "stats_schools_label": "参赛高校",
+    "cta_title": "你是AI视觉创作者？",
+    "cta_text": "加入部落，让你的作品被企业发现",
+    "cta_button": "立即创建你的创作者主页",
+    "hero_bg_image": "/uploads/1782183488064-u5nbbz.png",
+    "section_works_title": "获奖作品",
+    "section_creators_title": "推荐创作人"
+  },
+  "vacat": {
+    "title": "瓦卡奖 VACAT",
+    "subtitle": "全球AI视觉创意大赛 · Vision Arts Created by AI Technology",
+    "description": "AI视觉创意界的「奥斯卡」平台",
+    "intro_title": "关于瓦卡奖",
+    "intro_text": "AI视觉创意大赛（瓦卡奖VACAT）作为全球首个在AI视觉领域具有重大影响力的活动。依托国家级文化产业园区（龙岗数字创意产业走廊）硬件基础与 AI 视觉应用场景，采用 \"一赛、一汇、一坊\" 形式，搭建国际化交流平台，汇聚全球 AI 视觉创作力量，推动 AI 与视觉艺术融合，打造全球 AI 视觉领域盛会与产业集聚高地。\n",
+    "org_guide": "深圳市委宣传部 · 深圳市委网信办 · 深圳市文化广电旅游体育局",
+    "org_host": "深圳市龙岗区人民政府 · 上海电影股份有限公司 · 哔哩哔哩",
+    "org_organizer": "深圳市龙岗区文化广电旅游体育局",
+    "awards_works": "4,646",
+    "awards_finalists": "76",
+    "awards_schools": "92",
+    "cta_title": "第三届瓦卡奖即将启动",
+    "cta_text": "敬请关注官方公告",
+    "cta_button": "了解详情",
+    "cover_image": "/assets/images/cover.png",
+    "judges_title": "专业评审团",
+    "org_title": "组织架构",
+    "schedule_title": "第二届大赛日程",
+    "awards_works_label": "投稿作品",
+    "awards_finalists_label": "获奖作品",
+    "awards_schools_label": "参赛高校",
+    "carousel_image": "/uploads/1782117577890-ow3nfe.png",
+    "about_image": "/assets/about/vacat-about.png",
+    "achievement_1_title": "行业标杆地位",
+    "achievement_1_desc": "被新华社、人民网等权威媒体誉为\"<span style=\"color:var(--gold);font-weight:700\">中国 AI 创意第一赛</span>\"，定位为AI视觉创意界的\"<span style=\"color:var(--gold);font-weight:700\">奥斯卡</span>\"，已成为行业风向标。",
+    "achievement_2_title": "作品影响力",
+    "achievement_2_desc": "首届金奖作品《山海经》全网播放量突破<span style=\"color:var(--gold);font-weight:700\">5000 万</span>，登上微博热搜<span style=\"color:var(--gold);font-weight:700\">第四位</span>；第二届作品技术精度与艺术表现力实现跨越式提升。",
+    "achievement_3_title": "产业转化成效",
+    "achievement_3_desc": "首届达成意向合作项目及订单共<span style=\"color:var(--gold);font-weight:700\">272 个</span>，初步构建龙岗 AI 视觉创意生态圈；第二届形成\"能获奖、能对接、能变现\"的完整产业生态。",
+    "achievement_4_title": "学术贡献",
+    "achievement_4_desc": "<span style=\"color:var(--gold);font-weight:700\">2025</span> 年发布全国<span style=\"color:var(--gold);font-weight:700\">首部</span>《AI 视觉创意应用蓝皮书 2025》，填补国内 AI 视觉创意领域系统性研究空白。",
+    "achievement_5_title": "国际影响力",
+    "achievement_5_desc": "第二届收到北京电影学院<span style=\"color:var(--gold);font-weight:700\">49 份</span>特邀投稿、国际学生媒体艺术节<span style=\"color:var(--gold);font-weight:700\">20 份</span>特邀投稿，成为全球 AI 创意领域具有广泛影响力的交流平台。",
+    "judge_1_name": "李舸",
+    "judge_1_title": "中国文联第十一届副主席 · 中国摄影家协会主席",
+    "judge_1_avatar": "/uploads/1782147309290-q0fjl5.jpg",
+    "judge_2_name": "朱军",
+    "judge_2_title": "清华大学人工智能研究院副院长 · 生数科技首席科学家",
+    "judge_2_avatar": "/uploads/1782147315865-ucfcaa.jpg",
+    "judge_3_name": "陆蓉之",
+    "judge_3_title": "著名策展人、艺评家 · 台北实践创意产业博士班导师",
+    "judge_3_avatar": "/uploads/1782147328899-3flhk3.jpg",
+    "judge_4_name": "曹颋",
+    "judge_4_title": "北京电影学院影像传媒学院院长 · 青年电影制片厂董事长",
+    "judge_4_avatar": "/uploads/1782147822361-pex9am.png",
+    "judge_5_name": "石川武志",
+    "judge_5_title": "日本 · 京都国际独立游戏节发起人 · UNKNOWASIA联合发起人 · Skeleton Crew新媒体公司负责人",
+    "judge_5_avatar": "/uploads/1782147337925-lsxnfe.jpg",
+    "judge_6_name": "Felipe Franco",
+    "judge_6_title": "FF&CO.创始人及创意总监 · 多次荣获纽约ADC、红点、IF、戛纳狮子奖",
+    "judge_6_avatar": "/uploads/1782147344978-n5a099.jpg",
+    "judge_7_name": "Ingo Offermanns",
+    "judge_7_title": "德国汉堡美术学院副院长 · 国际平面设计联盟AGI会员",
+    "judge_7_avatar": "/uploads/1782147362315-ot0q9k.jpg",
+    "org_coorganizer": "上影（深圳）数智文创科技有限公司 · 深圳市天健云途数字产业运营有限公司 · 深圳市云启数字产业发展有限公司 · 深圳市珞英缤纷科技有限公司"
+  },
+  "events": {
+    "title": "活动资讯",
+    "subtitle": "第三届瓦卡奖VACAT即将启动 · 敬请关注",
+    "section_title": "第二届瓦卡奖精彩回顾（2025年10月）",
+    "day1_title": "10.17 - 颁奖典礼及项目签约",
+    "day1_schedule": "<span style=\"color:var(--gold);font-weight:700;font-size:12px\">上午场</span>\n09:00-10:00 嘉宾签到\n10:00-10:05 大赛获奖作品集锦观赏\n10:05-10:10 出席领导嘉宾介绍\n10:10-10:20 领导嘉宾致辞\n10:20-10:25 大赛评委介绍\n10:25-10:35 大赛颁奖\n10:35-10:40 评委代表点评\n10:40-10:45 合作项目签约\n10:45-10:50 首部AI视觉创意应用蓝皮书发布\n10:50-11:00 AI视觉创意大赛开幕\n11:00-11:30 参观AI视觉创意汇\n\n<span style=\"color:var(--gold);font-weight:700;font-size:12px;margin-top:16px;display:inline-block\">下午场</span>\n14:00-16:00 AI产品发布会\n16:00-17:30 AI场景对接会\n14:00-16:30 AI创投路演会",
+    "day2_title": "10.18 - AI视觉技术工作坊",
+    "day2_schedule": "<span style=\"color:var(--gold);font-weight:700;font-size:12px\">上午场</span>\n09:00-12:00 上午场：技术与创意分享\n\n分享嘉宾：\n野菩萨 - AI艺术本体\n赵伯祚 - 从文化图像学到技术图像学\n范圣玺 - AI与认知行为学\n邵怡蕾 - ReFocus 重新聚焦\n李继刚 - 语言蒸馏\n郭锐文 - Realtime Processing 实时处理\n\n<span style=\"color:var(--gold);font-weight:700;font-size:12px;margin-top:16px;display:inline-block\">下午场</span>\n14:00-17:00 下午场：嘉宾深度分享\n\n分享嘉宾：\n吴冠军 - AI与后人类创作\n陆蓉之 - AI与感知创作\nFelipe Franco - 合成叙事\nIngo Offermanns - 设计思维",
+    "day3_title": "10.19 - AI竞技日 BATTLE DAY",
+    "day3_schedule": "<span style=\"color:var(--gold);font-weight:700;font-size:12px\">厂商战队赛</span>\n09:00-11:30 全球AI视频厂商战队赛\n\n参赛厂商：\nMiniMax（海螺）\nPixverse（拍我）\nKlingAI（可灵）\nSeaArt（海艺）\n悠船（Midjourney中国实验室）\nVidu（生数）\nSand AI\nGaga\n\n<span style=\"color:var(--gold);font-weight:700;font-size:12px;margin-top:24px;display:inline-block\">高校组总决赛</span>\n14:00-15:15 全国高校AI电竞锦标赛总决赛\n\n决赛高校：\n南开大学 | 深圳大学 | 南京艺术学院\n南京传媒学院 | 北京服装学院\n广东外语外贸大学 | 北京城市学院\n成都银杏酒店管理学院\n\n<span style=\"color:var(--gold);font-weight:700;font-size:12px;margin-top:24px;display:inline-block\">专业组总决赛</span>\n15:45-17:40 专业AI电竞联赛团队组总决赛\n17:40-18:00 颁奖典礼",
+    "exhibition_title": "10.17-11.16 - AI视觉创意汇",
+    "exhibition_text": "瓦卡之光获奖作品展\n隆重展映第一届和第二届瓦卡奖所有获奖作品\n<div style=\"margin-bottom:16px\"></div>\nAI企业技术展\n邀请全国顶尖的AI视觉技术厂家展示最新成果\n<div style=\"margin-bottom:16px\"></div>\n国际大师邀请展\n邀请11位全球顶尖AI艺术家呈现其代表作\n<div style=\"margin-bottom:16px\"></div>\n时间：10月17日至11月16日\n地点：深圳·红立方公共艺术馆",
+    "detail_link_text": "查看详情",
+    "day1_date": "10.17",
+    "day1_event_title": "颁奖典礼及项目签约",
+    "day2_date": "10.18",
+    "day2_event_title": "AI视觉技术工作坊",
+    "day3_date": "10.19",
+    "day3_event_title": "AI竞技日 BATTLE DAY",
+    "exhibition_date": "10.17-11.16",
+    "exhibition_event_title": "AI视觉创意汇"
+  },
+  "about": {
+    "title": "关于我们",
+    "subtitle": "AI视觉创作者部落 · 瓦卡奖VACAT官方社区",
+    "mission_title": "关于瓦卡奖 VACAT",
+    "mission_text": "AI视觉创意大赛（瓦卡奖VACAT）作为全球首个在AI视觉领域具有重大影响力的活动。",
+    "org_title": "组织架构",
+    "org_text": "指导单位：深圳市委宣传部\n\n主办单位：深圳市龙岗区人民政府 · 上海电影股份有限公司 · 哔哩哔哩",
+    "contact_title": "联系我们",
+    "contact_office": "AI视觉创意大赛组委会办公室",
+    "contact_email": "contact@vacat.cc",
+    "contact_wechat": "vacat_official",
+    "contact_address": "上海市 · 瓦卡奖组委会"
+  },
+  "footer": {
+    "brand_text": "瓦卡奖组委会支持的社区平台。",
+    "copyright": "© 2026 AI视觉创作者部落 · 瓦卡奖VACAT",
+    "icp": "沪ICP备XXXXXXXX号"
+  },
+  "nav": {
+    "login_text": "登录",
+    "register_text": "注册",
+    "discover": "发现",
+    "creators": "创作人",
+    "works": "作品",
+    "vacat": "瓦卡奖",
+    "events": "活动",
+    "referral": "引荐"
+  },
+  "creators_page": {
+    "title": "创作人",
+    "subtitle": "浏览经过赛事验证的AI视觉创作者，发现适合你项目的合作伙伴"
+  },
+  "works_page": {
+    "title": "作品",
+    "subtitle": "浏览社区创作者的精选AI视觉作品，寻找灵感与合作可能"
+  },
+  "referral_page": {
+    "title": "发起引荐",
+    "subtitle": "填写项目需求，我们为你匹配最合适的AI视觉创作者",
+    "endorsement": "由瓦卡奖组委会运营，历届优秀创作者直接对接",
+    "steps": [
+      {
+        "num": "1",
+        "title": "填写需求",
+        "desc": "描述项目需求、预算和周期"
+      },
+      {
+        "num": "2",
+        "title": "提交信息",
+        "desc": "管理员24小时内与你联系确认"
+      },
+      {
+        "num": "3",
+        "title": "精准匹配",
+        "desc": "根据需求推荐1-5位候选创作者"
+      },
+      {
+        "num": "4",
+        "title": "对接签约",
+        "desc": "确认意向后双方自行洽谈"
+      }
+    ],
+    "form_title": "引荐申请表单",
+    "form_fields": {
+      "company": "企业名称",
+      "contact_name": "联系人",
+      "contact_info": "联系方式",
+      "direction": "内容方向",
+      "budget": "预算范围",
+      "timeline": "交付周期",
+      "description": "需求描述",
+      "creator": "希望引荐的创作者"
+    },
+    "faq": [
+      {
+        "q": "引荐服务收费吗？",
+        "a": "引荐咨询为免费服务。平台不收取引荐咨询费，合作达成后也不从项目金额中抽成。"
+      },
+      {
+        "q": "创作者水平怎么样？",
+        "a": "认证创作者均来自瓦卡奖赛事，经过专业评审团评审。"
+      },
+      {
+        "q": "可以指定某位创作者吗？",
+        "a": "可以。表单中有相关选项，填写后我们会优先确认。"
+      },
+      {
+        "q": "需要多个创作者合作怎么办？",
+        "a": "在需求描述中说明需要几人团队，我们会推荐可以协作的创作者组合。"
+      },
+      {
+        "q": "管控创作者报价吗？",
+        "a": "不管控。引荐完成后双方自行商定价格和合同。"
+      }
+    ],
+    "submit_button": "提交引荐申请",
+    "success_title": "申请已提交！",
+    "success_text": "我们将在24小时内与您联系确认需求细节。"
+  },
+  "profile_page": {
+    "title": "个人中心",
+    "nav_items": [
+      "基本信息",
+      "我的作品",
+      "引荐记录",
+      "账号设置"
+    ],
+    "form_labels": {
+      "avatar": "头像",
+      "name": "昵称/艺名",
+      "bio": "一句话介绍",
+      "specialty": "擅长方向",
+      "status": "接单状态",
+      "contact": "合作联系方式"
+    },
+    "save_button": "保存修改"
+  },
+  "auth": {
+    "register_title": "创建账号",
+    "register_subtitle": "加入AI视觉创作者部落",
+    "register_name_label": "昵称/艺名",
+    "register_email_label": "邮箱",
+    "register_password_label": "密码",
+    "register_button": "免费注册",
+    "register_footer": "已有账号？",
+    "register_footer_link": "登录",
+    "login_title": "欢迎回来",
+    "login_subtitle": "登录你的创作者账号",
+    "login_button": "登录",
+    "login_footer": "还没有账号？",
+    "login_footer_link": "注册"
+  }
+}

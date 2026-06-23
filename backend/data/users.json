@@ -1,0 +1,14 @@
+[
+  {
+    "id": 999,
+    "name": "管理员",
+    "email": "admin@vacat.cc",
+    "password": "c1edb7b47f5a37352777be16c4b021e3:26eb6ba9bbd7ff528645c4b94b75bcee2f7f86a3ca4514e819c4b288f0d9e16d",
+    "role": "admin",
+    "bio": "",
+    "specialty": "",
+    "status": "active",
+    "contact": "",
+    "created_at": "2026-06-17T05:47:24.378Z"
+  }
+]

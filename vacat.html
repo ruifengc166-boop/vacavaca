@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>瓦卡奖 VACAT - AI视觉创作者部落</title>
+<meta name="description" content="VACAT瓦卡奖——全球AI视觉创意大赛，了解大赛数据、评审团、日程安排，欣赏精彩瞬间。">
+<link rel="stylesheet" href="css/style.css">
+
+<style>
+/* Moments Lightbox */
+.moments-grid img{margin:0;display:block;width:100%;height:100%;object-fit:cover;transition:transform 0.3s ease}
+.moments-grid > div:hover img{transform:scale(1.05)}
+.moments-grid > div:hover{border-color:rgba(202,254,97,0.35)!important}
+.lightbox-overlay{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.92);display:none;align-items:center;justify-content:center;flex-direction:column}
+.lightbox-overlay.active{display:flex}
+.lightbox-overlay .lightbox-close{position:absolute;top:20px;right:28px;color:#fff;font-size:32px;cursor:pointer;opacity:0.7;transition:opacity 0.2s;z-index:10;background:none;border:none;font-family:inherit}
+.lightbox-overlay .lightbox-close:hover{opacity:1}
+.lightbox-overlay .lightbox-img-wrap{display:flex;align-items:center;justify-content:center;width:90vw;height:80vh}
+.lightbox-overlay .lightbox-img-wrap img{max-width:100%;max-height:100%;object-fit:contain;border-radius:8px}
+.lightbox-overlay .lightbox-nav{position:absolute;top:50%;transform:translateY(-50%);color:#fff;font-size:40px;cursor:pointer;opacity:0.6;transition:opacity 0.2s;background:none;border:none;padding:20px;font-family:inherit}
+.lightbox-overlay .lightbox-nav:hover{opacity:1}
+.lightbox-overlay .lightbox-prev{left:16px}
+.lightbox-overlay .lightbox-next{right:16px}
+.lightbox-overlay .lightbox-counter{position:absolute;bottom:24px;color:rgba(255,255,255,0.6);font-size:14px;letter-spacing:0.05em}
+.achievement-card{transition:all 0.3s cubic-bezier(0.34,1.56,0.64,1);cursor:default;z-index:1;position:relative;overflow:hidden}
+.achievement-card:hover{transform:translateY(-4px) scale(1.02);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);background:#0D1F3D!important}
+.achievement-card:hover::after{content:"";position:absolute;bottom:-60px;right:-60px;width:300px;height:300px;background:radial-gradient(circle,rgba(202,254,97,0.25) 0%,transparent 70%);border-radius:50%;pointer-events:none;filter:blur(30px);z-index:0}
+.achievement-card:hover > *{position:relative;z-index:1}
+/* 瓦卡奖呼声卡片 hover */
+.cta-card:hover{transform:translateY(-4px) scale(1.02);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);background:#0D1F3D!important;cursor:pointer}
+.cta-card:hover::after{content:"";position:absolute;bottom:-60px;right:-60px;width:300px;height:300px;background:radial-gradient(circle,rgba(202,254,97,0.25) 0%,transparent 70%);border-radius:50%;pointer-events:none;filter:blur(30px);z-index:0}
+.cta-card:hover > *{position:relative;z-index:1}
+h3 a[href="events.html"]:hover{color:var(--gold)!important}
+</style>
+<style>body{background:#0A0A0A url('/assets/backgrounds/bg-bottom.png') no-repeat bottom center fixed;background-size:cover}</style>
+</head>
+<body>
+<div class="navbar"><div class="container"><a class="logo" href="index.html"><img src="/assets/logo/nav-logo.png" alt="VACAT" style="height:24px;width:auto;display:block;vertical-align:middle"></a><div class="nav-links"><a href="index.html">发现</a><a href="creators.html">创作人</a><a href="works.html">作品</a><a href="vacat.html">瓦卡奖</a><a href="events.html">活动</a><a href="referral.html">引荐</a></div><div class="nav-actions"><a href="login.html" class="btn-nav">登录</a><a href="register.html" class="btn-reg">注册</a></div><div class="nav-toggle"><span></span><span></span><span></span></div></div></div>
+
+</div>
+<div class="page-header"><div class="container" style="max-width:960px"><h1 data-c="vacat.title">瓦卡奖 VACAT</h1><p data-c="vacat.subtitle">全球AI视觉创意大赛 · Vision Arts Created by AI Technology</p><p style="font-size:13px;color:var(--text3);margin-top:6px"><span data-c="vacat.description">AI视觉创意界的「奥斯卡」平台</span></p></div>
+<div class="page-carousel" style="width:100%;height:640px;overflow:hidden;position:relative;margin-top:64px">
+  <img data-c="vacat.carousel_image" src="assets/carousel/carousel-01.jpg" alt="瓦卡奖" style="width:100%;height:100%;object-fit:cover;display:block">
+  <div style="position:absolute;inset:0;background:linear-gradient(to bottom,transparent 50%,rgba(0,0,0,0.6))"></div>
+</div><div class="container" style="max-width:960px;text-align:left">
+  <!-- 关于瓦卡奖 -->
+<div style="display:flex;flex-direction:column;align-items:flex-start">
+  <h3 style="font-size:20px;font-weight:600;margin-bottom:10px;margin-top:200px;color:var(--text)" data-c="vacat.intro_title">关于瓦卡奖</h3>
+  <p style="color:var(--text3);line-height:1.8;width:100%;max-width:920px" data-c="vacat.intro_text">AI视觉创意大赛（瓦卡奖VACAT）作为全球首个在AI视觉领域具有重大影响力的活动...</p>
+  <div style="margin-top:24px;margin-bottom:160px">
+    <img data-c="vacat.about_image" loading="lazy" src="assets/about/vacat-about.png" alt="关于瓦卡奖" style="max-width:100%;border-radius:12px;border:1px solid var(--border)">
+  </div>
+</div>
+
+  <h3 style="font-size:20px;font-weight:600;margin-bottom:10px;margin-top:0;color:var(--text)">核心成果</h3>
+
+<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-bottom:160px">
+  <div class="achievement-card" style="background:var(--card);padding:20px;border-radius:var(--radius);border:1px solid var(--border);position:relative;overflow:hidden">
+    <div style="font-size:40px;line-height:1;margin-bottom:8px">🏆</div>
+    <div data-c="vacat.achievement_1_title" style="font-size:15px;font-weight:600;margin-bottom:6px;color:var(--text)">行业标杆地位</div>
+    <p data-c="vacat.achievement_1_desc" style="font-size:14px;color:var(--text3);line-height:1.8;margin:0">被新华社、人民网等权威媒体誉为"<span style="color:var(--gold);font-weight:700">中国 AI 创意第一赛</span>"，定位为AI视觉创意界的"<span style="color:var(--gold);font-weight:700">奥斯卡</span>"，已成为行业风向标。</p>
+  </div>
+  <div class="achievement-card" style="background:var(--card);padding:20px;border-radius:var(--radius);border:1px solid var(--border);position:relative;overflow:hidden">
+    <div style="font-size:40px;line-height:1;margin-bottom:8px">🎬</div>
+    <div data-c="vacat.achievement_2_title" style="font-size:15px;font-weight:600;margin-bottom:6px;color:var(--text)">作品影响力</div>
+    <p data-c="vacat.achievement_2_desc" style="font-size:14px;color:var(--text3);line-height:1.8;margin:0">首届金奖作品《山海经》全网播放量突破<span style="color:var(--gold);font-weight:700">5000 万</span>，登上微博热搜<span style="color:var(--gold);font-weight:700">第四位</span>；第二届作品技术精度与艺术表现力实现跨越式提升。</p>
+  </div>
+  <div class="achievement-card" style="background:var(--card);padding:20px;border-radius:var(--radius);border:1px solid var(--border);position:relative;overflow:hidden">
+    <div style="font-size:40px;line-height:1;margin-bottom:8px">🤝</div>
+    <div data-c="vacat.achievement_3_title" style="font-size:15px;font-weight:600;margin-bottom:6px;color:var(--text)">产业转化成效</div>
+    <p data-c="vacat.achievement_3_desc" style="font-size:14px;color:var(--text3);line-height:1.8;margin:0">首届达成意向合作项目及订单共<span style="color:var(--gold);font-weight:700">272 个</span>，初步构建龙岗 AI 视觉创意生态圈；第二届形成"能获奖、能对接、能变现"的完整产业生态。</p>
+  </div>
+  <div class="achievement-card" style="background:var(--card);padding:20px;border-radius:var(--radius);border:1px solid var(--border);position:relative;overflow:hidden">
+    <div style="font-size:40px;line-height:1;margin-bottom:8px">📚</div>
+    <div data-c="vacat.achievement_4_title" style="font-size:15px;font-weight:600;margin-bottom:6px;color:var(--text)">学术贡献</div>
+    <p data-c="vacat.achievement_4_desc" style="font-size:14px;color:var(--text3);line-height:1.8;margin:0">2025 年发布全国<span style="color:var(--gold);font-weight:700">首部</span>《AI 视觉创意应用蓝皮书 2025》，填补国内 AI 视觉创意领域系统性研究空白。</p>
+  </div>
+  <div class="achievement-card" style="background:var(--card);padding:20px;border-radius:var(--radius);border:1px solid var(--border);position:relative;overflow:hidden">
+    <div style="font-size:40px;line-height:1;margin-bottom:8px">🌍</div>
+    <div data-c="vacat.achievement_5_title" style="font-size:15px;font-weight:600;margin-bottom:6px;color:var(--text)">国际影响力</div>
+    <p data-c="vacat.achievement_5_desc" style="font-size:14px;color:var(--text3);line-height:1.8;margin:0">第二届收到北京电影学院<span style="color:var(--gold);font-weight:700">49 份</span>特邀投稿、国际学生媒体艺术节<span style="color:var(--gold);font-weight:700">20 份</span>特邀投稿，成为全球 AI 创意领域具有广泛影响力的交流平台。</p>
+  </div>
+</div>
+
+  <h3 style="font-size:20px;font-weight:600;margin-bottom:10px;color:var(--text)">第二届大赛数据</h3>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:160px">
+  <div class="achievement-card" style="background:var(--card);padding:20px;border-radius:var(--radius);text-align:center;border:1px solid var(--border);position:relative;overflow:hidden"><div style="font-size:28px;font-weight:700;color:var(--gold)">4,646</div><div style="font-size:12px;color:var(--text3);margin-top:4px">投稿作品</div></div>
+  <div class="achievement-card" style="background:var(--card);padding:20px;border-radius:var(--radius);text-align:center;border:1px solid var(--border);position:relative;overflow:hidden"><div style="font-size:28px;font-weight:700;color:var(--gold)">76</div><div style="font-size:12px;color:var(--text3);margin-top:4px">获奖作品</div></div>
+  <div class="achievement-card" style="background:var(--card);padding:20px;border-radius:var(--radius);text-align:center;border:1px solid var(--border);position:relative;overflow:hidden"><div style="font-size:28px;font-weight:700;color:var(--gold)">92</div><div style="font-size:12px;color:var(--text3);margin-top:4px">参赛高校</div></div>
+</div>
+
+  <h3 style="font-size:20px;font-weight:600;margin-bottom:16px;color:var(--text)">精彩瞬间</h3>
+<div class="moments-grid" id="vacatMoments" style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:160px">
+  <div style="aspect-ratio:16/9;border-radius:6px;overflow:hidden;background:var(--card);border:1px solid var(--border);cursor:pointer"><div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:var(--text3);font-size:13px">加载中...</div></div>
+  <div style="aspect-ratio:16/9;border-radius:6px;overflow:hidden;background:var(--card);border:1px solid var(--border);cursor:pointer"><div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:var(--text3);font-size:13px">加载中...</div></div>
+  <div style="aspect-ratio:16/9;border-radius:6px;overflow:hidden;background:var(--card);border:1px solid var(--border);cursor:pointer"><div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:var(--text3);font-size:13px">加载中...</div></div>
+  <div style="aspect-ratio:16/9;border-radius:6px;overflow:hidden;background:var(--card);border:1px solid var(--border);cursor:pointer"><div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:var(--text3);font-size:13px">加载中...</div></div>
+  <div style="aspect-ratio:16/9;border-radius:6px;overflow:hidden;background:var(--card);border:1px solid var(--border);cursor:pointer"><div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:var(--text3);font-size:13px">加载中...</div></div>
+  <div style="aspect-ratio:16/9;border-radius:6px;overflow:hidden;background:var(--card);border:1px solid var(--border);cursor:pointer"><div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:var(--text3);font-size:13px">加载中...</div></div>
+  <div style="aspect-ratio:16/9;border-radius:6px;overflow:hidden;background:var(--card);border:1px solid var(--border);cursor:pointer"><div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:var(--text3);font-size:13px">加载中...</div></div>
+  <div style="aspect-ratio:16/9;border-radius:6px;overflow:hidden;background:var(--card);border:1px solid var(--border);cursor:pointer"><div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:var(--text3);font-size:13px">加载中...</div></div>
+  <div style="aspect-ratio:16/9;border-radius:6px;overflow:hidden;background:var(--card);border:1px solid var(--border);cursor:pointer"><div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:var(--text3);font-size:13px">加载中...</div></div>
+</div>
+
+  <h3 style="font-size:20px;font-weight:600;margin-bottom:10px;color:var(--text)">组织架构</h3>
+<p style="color:var(--text3);font-size:14px;margin-bottom:20px"><strong style="color:var(--text)">指导单位</strong><br>深圳市委宣传部 · 深圳市委网信办 · 深圳市文化广电旅游体育局</p>
+<p style="color:var(--text3);font-size:14px;margin-bottom:20px"><strong style="color:var(--text)">主办单位</strong><br>深圳市龙岗区人民政府 · 上海电影股份有限公司 · 哔哩哔哩<br><br><strong style="color:var(--text)">承办单位</strong><br>深圳市龙岗区文化广电旅游体育局</p><p style="color:var(--text3);font-size:14px;margin-bottom:160px"><strong style="color:var(--text)">协办单位</strong><br><span data-c="vacat.org_coorganizer">上影（深圳）数智文创科技有限公司 · 深圳市天健云途数字产业运营有限公司 · 深圳市云启数字产业发展有限公司 · 深圳市珞英缤纷科技有限公司</span></p>
+
+  <h3 style="font-size:20px;font-weight:600;margin-bottom:10px;color:var(--text)">专业评审团</h3>
+<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:160px">
+  <div class="achievement-card" style="background:var(--card);padding:16px;border-radius:var(--radius);border:1px solid var(--border);display:flex;gap:12px;align-items:center;position:relative;overflow:hidden"><div class="judge-avatar" data-c="vacat.judge_1_avatar" data-initial="李" style="width:64px;height:64px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;color:#000;flex-shrink:0">李</div><div><strong data-c="vacat.judge_1_name">李舸</strong><div data-c="vacat.judge_1_title" style="font-size:12px;color:var(--text3)">中国文联第十一届副主席 · 中国摄影家协会主席</div></div></div>
+  <div class="achievement-card" style="background:var(--card);padding:16px;border-radius:var(--radius);border:1px solid var(--border);display:flex;gap:12px;align-items:center;position:relative;overflow:hidden"><div class="judge-avatar" data-c="vacat.judge_2_avatar" data-initial="朱" style="width:64px;height:64px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;color:#000;flex-shrink:0">朱</div><div><strong data-c="vacat.judge_2_name">朱军</strong><div data-c="vacat.judge_2_title" style="font-size:12px;color:var(--text3)">清华大学人工智能研究院副院长 · 生数科技首席科学家</div></div></div>
+  <div class="achievement-card" style="background:var(--card);padding:16px;border-radius:var(--radius);border:1px solid var(--border);display:flex;gap:12px;align-items:center;position:relative;overflow:hidden"><div class="judge-avatar" data-c="vacat.judge_3_avatar" data-initial="陆" style="width:64px;height:64px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;color:#000;flex-shrink:0">陆</div><div><strong data-c="vacat.judge_3_name">陆蓉之</strong><div data-c="vacat.judge_3_title" style="font-size:12px;color:var(--text3)">著名策展人、艺评家 · 台北实践创意产业博士班导师</div></div></div>
+  <div class="achievement-card" style="background:var(--card);padding:16px;border-radius:var(--radius);border:1px solid var(--border);display:flex;gap:12px;align-items:center;position:relative;overflow:hidden"><div class="judge-avatar" data-c="vacat.judge_4_avatar" data-initial="曹" style="width:64px;height:64px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;color:#000;flex-shrink:0">曹</div><div><strong data-c="vacat.judge_4_name">曹颋</strong><div data-c="vacat.judge_4_title" style="font-size:12px;color:var(--text3)">北京电影学院影像传媒学院院长 · 青年电影制片厂董事长</div></div></div>
+  <div class="achievement-card" style="background:var(--card);padding:16px;border-radius:var(--radius);border:1px solid var(--border);display:flex;gap:12px;align-items:center;position:relative;overflow:hidden"><div class="judge-avatar" data-c="vacat.judge_5_avatar" data-initial="石" style="width:64px;height:64px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;color:#000;flex-shrink:0">石</div><div><strong data-c="vacat.judge_5_name">石川武志</strong><div data-c="vacat.judge_5_title" style="font-size:12px;color:var(--text3)">日本 · 京都国际独立游戏节发起人 · UNKNOWASIA联合发起人 · Skeleton Crew新媒体公司负责人</div></div></div>
+  <div class="achievement-card" style="background:var(--card);padding:16px;border-radius:var(--radius);border:1px solid var(--border);display:flex;gap:12px;align-items:center;position:relative;overflow:hidden"><div class="judge-avatar" data-c="vacat.judge_6_avatar" data-initial="F" style="width:64px;height:64px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;color:#000;flex-shrink:0">F</div><div><strong data-c="vacat.judge_6_name">Felipe Franco</strong><div data-c="vacat.judge_6_title" style="font-size:12px;color:var(--text3)">FF&CO.创始人及创意总监 · 多次荣获纽约ADC、红点、IF、戛纳狮子奖</div></div></div>
+  <div class="achievement-card" style="background:var(--card);padding:16px;border-radius:var(--radius);border:1px solid var(--border);display:flex;gap:12px;align-items:center;position:relative;overflow:hidden"><div class="judge-avatar" data-c="vacat.judge_7_avatar" data-initial="I" style="width:64px;height:64px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;color:#000;flex-shrink:0">I</div><div><strong data-c="vacat.judge_7_name">Ingo Offermanns</strong><div data-c="vacat.judge_7_title" style="font-size:12px;color:var(--text3)">德国汉堡美术学院副院长 · 国际平面设计联盟AGI会员</div></div></div>
+</div>
+
+  <h3 style="font-size:20px;font-weight:600;margin-bottom:10px;color:var(--text)">赛道设置</h3>
+
+  <div style="font-size:18px;font-weight:600;margin-bottom:8px;margin-top:16px;color:var(--text)">AI 视频类</div>
+  <div style="border-bottom:2px solid var(--text);margin-bottom:16px"></div>
+
+  <div style="display:flex;font-size:14px;color:var(--text3);margin-bottom:6px">
+    <span style="flex:0 0 180px;color:#9ca3af;font-weight:600">赛道设置</span>
+    <span style="color:#9ca3af;font-weight:600">代表获奖作品</span>
+  </div>
+  <div style="border-bottom:1px solid var(--border);margin-bottom:12px"></div>
+
+  <div style="margin-bottom:12px">
+    <div style="display:flex;padding:6px 0;font-size:14px"><span style="flex:0 0 180px;color:var(--text);font-weight:500">AI 真实叙事影片</span><span style="color:var(--text3)">《ANIMA (上)》《Green Screen 绿幕》《龙门客栈 2067》等 15 件</span></div>
+    <div style="display:flex;padding:6px 0;font-size:14px"><span style="flex:0 0 180px;color:var(--text);font-weight:500">AI 动画叙事影片</span><span style="color:var(--text3)">《带上她的眼睛》《敦煌行 | 第二季 - 九泉十二宫》《水墨国风》等 15 件</span></div>
+    <div style="display:flex;padding:6px 0;font-size:14px"><span style="flex:0 0 180px;color:var(--text);font-weight:500">AI 商业创意影片</span><span style="color:var(--text3)">《AI 上文博》《法拉利 Purosangue》《智绘大芬创艺无限》等 15 件</span></div>
+    <div style="display:flex;padding:6px 0;font-size:14px"><span style="flex:0 0 180px;color:var(--text);font-weight:500">AI 视觉艺术影片</span><span style="color:var(--text3)">《ECHO》《记忆在逃》《长江缝隙》等 11 件以上</span></div>
+  </div>
+
+  <div style="font-size:18px;font-weight:600;margin-bottom:8px;margin-top:24px;color:var(--text)">AI 图像类</div>
+  <div style="border-bottom:2px solid var(--text);margin-bottom:16px"></div>
+
+  <div style="display:flex;font-size:14px;color:var(--text3);margin-bottom:6px">
+    <span style="flex:0 0 180px;color:#9ca3af;font-weight:600">赛道设置</span>
+    <span style="color:#9ca3af;font-weight:600">代表获奖作品</span>
+  </div>
+  <div style="border-bottom:1px solid var(--border);margin-bottom:12px"></div>
+
+  <div style="margin-bottom:160px">
+    <div style="display:flex;padding:6px 0;font-size:14px"><span style="flex:0 0 180px;color:var(--text);font-weight:500">AI 艺术海报</span><span style="color:var(--text3)">《EVE NO.1》《Human Machine》《百合》《国瓷幻境》等 14 件</span></div>
+  </div>
+  <h3 style="font-size:20px;font-weight:600;margin-bottom:10px;color:var(--text);display:flex;justify-content:space-between;align-items:center">第二届大赛日程<a href="events.html" style="font-size:13px;color:var(--text3);font-weight:400;text-decoration:none;transition:color 0.2s">查看详细日程 →</a></h3>
+<div style="display:grid;gap:8px;font-size:14px;margin-bottom:160px">
+  <div class="achievement-card" style="background:var(--card);padding:26px 0;border-radius:var(--radius);border:1px solid var(--border);display:flex;position:relative;overflow:hidden"><span style="flex:0 0 180px;font-weight:600;padding-left:12px">06.16 - 07.31</span><span style="color:var(--text3)">📢 作品征集</span></div>
+  <div class="achievement-card" style="background:var(--card);padding:26px 0;border-radius:var(--radius);border:1px solid var(--border);display:flex;position:relative;overflow:hidden"><span style="flex:0 0 180px;font-weight:600;padding-left:12px">08.01 - 09.30</span><span style="color:var(--text3)">🔍 技术筛查 · 专业评审</span></div>
+  <div class="achievement-card" style="background:var(--card);padding:26px 0;border-radius:var(--radius);border:1px solid var(--border);display:flex;position:relative;overflow:hidden"><span style="flex:0 0 180px;font-weight:600;padding-left:12px">10.17 - 10.19</span><span style="color:var(--text3)">🏆 颁奖典礼及配套活动</span></div>
+  <div class="achievement-card" style="background:var(--card);padding:26px 0;border-radius:var(--radius);border:1px solid var(--border);display:flex;position:relative;overflow:hidden"><span style="flex:0 0 180px;font-weight:600;padding-left:12px">10.17 - 11.16</span><span style="color:var(--text3)">🎨 AI视觉创意作品展</span></div>
+</div>
+
+  <div class="cta-card" style="text-align:center;padding:32px;background:var(--card);border-radius:var(--radius-lg);border:1px solid rgba(202,254,97,0.15);margin-bottom:140px">
+    <h4 style="font-size:16px;font-weight:600;margin-bottom:8px">第三届瓦卡奖即将启动</h4>
+    <p style="font-size:13px;color:var(--text3);margin-bottom:16px">敬请关注官方公告</p>
+    <a href="vacat.html" class="btn btn-primary">了解详情</a>
+  </div>
+
+</div>
+<div class="footer"><div class="container"><div class="footer-grid"><div class="footer-brand"><img src="/assets/logo/nav-logo.png" alt="VACAT" style="height:36px;width:auto;display:block;margin-bottom:8px"><p>AI视觉创作者部落 · 瓦卡奖组委会支持的社区平台</p><p style="font-size:12px;color:var(--text3);margin-top:16px"></p></div><div class="footer-col"><h4>发现</h4><a href="creators.html">创作人</a><a href="works.html">作品</a><a href="events.html">活动</a></div><div class="footer-col"><h4>关于</h4><a href="vacat.html">瓦卡奖</a><a href="about.html">关于我们</a><a href="referral.html">引荐</a></div><div class="footer-col"><h4>支持</h4><a href="#">联系方式</a><a href="referral.html">FAQ</a><a href="register.html">注册</a><a href="/admin/" target="_blank">后台</a></div></div><div class="footer-bottom"><span>&copy; 2026 AI视觉创作者部落 · 瓦卡奖VACAT</span><span>沪ICP备XXXXXXXX号</span></div></div></div>
+<script src="js/content-loader.js?v=2"></script>
+<script src="js/main.js?v=2"></script>
+<!-- 悬浮浮窗 -->
+<div class="float-recruit" style="display:none" onclick="window.open('/apply','_blank')">
+  <div class="float-recruit-inner">
+    <span class="float-recruit-icon">🎬</span>
+    <span class="float-recruit-text">AI精品短剧创作营招募🔥</span>
+  </div>
+</div>
+
+<!-- 首页视差微动效 -->
+<style>
+.hero{overflow:hidden}
+.hero-bg{transition:transform 0.08s ease-out;will-change:transform}
+</style>
+
+<script>
+(function(){
+function loadAvatars(){
+var x=new XMLHttpRequest();
+x.open("GET","/api/content",true);
+x.onload=function(){
+try{
+var d=JSON.parse(x.responseText);
+document.querySelectorAll(".judge-avatar").forEach(function(el){
+var k=el.getAttribute("data-c");if(!k)return;
+var p=k.split("."),v=d;
+for(var i=0;i<p.length;i++){if(v)v=v[p[i]];}
+if(v&&typeof v==="string"&&v.length>0){
+el.innerHTML="<img src=\""+v+"\" style=\"width:64px;height:64px;border-radius:50%;object-fit:cover;display:block\">";
+el.style.background="none";
+}else{
+el.textContent=el.getAttribute("data-initial")||"?";
+}
+el.removeAttribute("data-c");
+});
+}catch(e){}
+};
+x.send();
+}
+setTimeout(loadAvatars,100);
+})();
+</script>
+<!-- 精彩瞬间灯箱 -->
+<div class="lightbox-overlay" id="momentLightbox">
+  <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+  <button class="lightbox-nav lightbox-prev" onclick="prevMoment()">&#10094;</button>
+  <div class="lightbox-img-wrap">
+    <img loading="lazy" id="lightboxImg" src="" alt="">
+  </div>
+  <button class="lightbox-nav lightbox-next" onclick="nextMoment()">&#10095;</button>
+  <div class="lightbox-counter" id="lightboxCounter"></div>
+</div>
+
+<script>
+(function(){
+  var currentIdx = 0;
+  var momentsData = [];
+  window.openLightbox = function(idx) {
+    currentIdx = idx;
+    var lb = document.getElementById("momentLightbox");
+    var img = document.getElementById("lightboxImg");
+    var counter = document.getElementById("lightboxCounter");
+    if (momentsData[currentIdx]) {
+      img.src = momentsData[currentIdx].src;
+      img.alt = momentsData[currentIdx].title || "";
+      counter.textContent = (currentIdx + 1) + " / " + momentsData.length;
+    }
+    lb.classList.add("active");
+  };
+  window.closeLightbox = function() {
+    document.getElementById("momentLightbox").classList.remove("active");
+  };
+  window.prevMoment = function() {
+    if (momentsData.length === 0) return;
+    currentIdx = (currentIdx - 1 + momentsData.length) % momentsData.length;
+    window.openLightbox(currentIdx);
+  };
+  window.nextMoment = function() {
+    if (momentsData.length === 0) return;
+    currentIdx = (currentIdx + 1) % momentsData.length;
+    window.openLightbox(currentIdx);
+  };
+  document.addEventListener("keydown", function(e) {
+    if (!document.getElementById("momentLightbox").classList.contains("active")) return;
+    if (e.key === "Escape") window.closeLightbox();
+    if (e.key === "ArrowLeft") window.prevMoment();
+    if (e.key === "ArrowRight") window.nextMoment();
+  });
+  document.getElementById("momentLightbox").addEventListener("click", function(e) {
+    if (e.target === this) window.closeLightbox();
+  });
+  fetch("/api/moments").then(function(r){return r.json()}).then(function(data){
+    momentsData = data;
+    var grid = document.getElementById("vacatMoments");
+    if (!grid) return;
+    if (data.length === 0) {
+      grid.innerHTML = "<div style=\"grid-column:1/-1;text-align:center;padding:40px;color:var(--text3);font-size:14px\">\u6682\u65e0\u7cbe\u5f69\u77ac\u95f4</div>";
+      return;
+    }
+    grid.innerHTML = "";
+    data.forEach(function(m, i){
+      var div = document.createElement("div");
+      div.style.cssText = "aspect-ratio:16/9;border-radius:6px;overflow:hidden;background:var(--card);border:1px solid var(--border);cursor:pointer;position:relative";
+      div.onclick = function(){window.openLightbox(i);};
+      var img = document.createElement("img");
+      img.src = m.src;
+      img.alt = m.title || "";
+      img.style.cssText = "width:100%;height:100%;object-fit:cover";
+      div.appendChild(img);
+      grid.appendChild(div);
+    });
+  }).catch(function(e){console.error("Moments error:",e)});
+})();
+</script>
+</body>
+</html>

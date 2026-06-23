@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>个人中心 - VACAT</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="navbar"><div class="container"><a class="logo" href="index.html"><img src="/assets/logo/nav-logo.png" alt="VACAT" style="height:24px;width:auto;display:block;vertical-align:middle"></a><div class="nav-links"><a href="index.html">发现</a><a href="creators.html">创作人</a><a href="works.html">作品</a><a href="vacat.html">瓦卡奖</a><a href="events.html">活动</a><a href="referral.html">引荐</a></div><div class="nav-actions"><a href="login.html" class="btn-nav">登录</a><a href="register.html" class="btn-reg">注册</a></div><div class="nav-toggle"><span></span><span></span><span></span></div></div></div>
+<div class="container"><div class="edit-layout"><div class="edit-sidebar"><a href="my-profile.html" class="active" data-c="profile_page.nav_items.0">基本信息</a><a href="my-profile.html" data-c="profile_page.nav_items.1">我的作品</a><a href="my-profile.html" data-c="profile_page.nav_items.2">引荐记录</a><a href="my-profile.html" data-c="profile_page.nav_items.3">账号设置</a></div><div class="edit-main"><h3 data-c="profile_page.title">基本信息</h3><div class="form-group"><label data-c="profile_page.form_labels.avatar">头像</label><input type="file" accept="image/*"></div><div class="form-group"><label data-c="profile_page.form_labels.name">昵称/艺名</label><input id="profile_name" value="创作者昵称"></div><div class="form-group"><label data-c="profile_page.form_labels.bio">一句话介绍</label><input id="profile_bio" placeholder="不超过30字"></div><div class="form-group"><label data-c="profile_page.form_labels.specialty">擅长方向</label><select id="profile_specialty"><option>AI视频</option><option>AI图像</option><option>概念设计</option><option>短剧</option></select></div><div class="form-group"><label data-c="profile_page.form_labels.status">接单状态</label><select id="profile_status"><option value="active">接单中</option><option value="inactive">暂停接单</option></select></div><div class="form-group"><label data-c="profile_page.form_labels.contact">合作联系方式</label><textarea id="profile_contact" placeholder="仅登录用户可见"></textarea></div><button class="btn btn-primary" onclick="saveProfile()" data-c="profile_page.save_button">保存修改</button></div></div></div>
+<div class="footer"><div class="container"><div class="footer-grid"><div class="footer-brand"><img src="/assets/logo/nav-logo.png" alt="VACAT" style="height:36px;width:auto;display:block;margin-bottom:8px"><p>AI视觉创作者部落 · 瓦卡奖组委会支持的社区平台。</p></div><div class="footer-col"><h4>发现</h4><a href="creators.html">创作人</a><a href="works.html">作品</a><a href="events.html">活动</a></div><div class="footer-col"><h4>关于</h4><a href="vacat.html">瓦卡奖</a><a href="about.html">关于我们</a><a href="referral.html">引荐</a></div><div class="footer-col"><h4>支持</h4><a href="#">联系方式</a><a href="referral.html">FAQ</a><a href="register.html">注册</a><a href="/admin/" target="_blank">后台</a></div></div><div class="footer-bottom"><span>&copy; 2026 AI视觉创作者部落</span><span>沪ICP备XXXXXXXX号</span></div></div></div>
+<script src="js/content-loader.js?v=2"></script>
+<script src="js/main.js?v=2"></script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="900" viewBox="0 0 1920 900">
+  <defs>
+    <radialGradient id="g1" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#141414"/>
+      <stop offset="100%" stop-color="#0A0A0A"/>
+    </radialGradient>
+    
+    <linearGradient id="line-glow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="rgba(212,168,75,0)" />
+      <stop offset="50%" stop-color="rgba(202,254,97,0.04)" />
+      <stop offset="100%" stop-color="rgba(212,168,75,0)" />
+    </linearGradient>
+
+    <filter id="blur1">
+      <feGaussianBlur stdDeviation="60" />
+    </filter>
+    <filter id="blur2">
+      <feGaussianBlur stdDeviation="30" />
+    </filter>
+    <filter id="blur3">
+      <feGaussianBlur stdDeviation="2" />
+    </filter>
+    
+    <linearGradient id="gold-glow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="rgba(212,168,75,0)" />
+      <stop offset="40%" stop-color="rgba(202,254,97,0.03)" />
+      <stop offset="60%" stop-color="rgba(202,254,97,0.03)" />
+      <stop offset="100%" stop-color="rgba(212,168,75,0)" />
+    </linearGradient>
+  </defs>
+
+  <!-- Base dark background -->
+  <rect width="1920" height="900" fill="url(#g1)" />
+
+  <!-- Subtle diagonal lines -->
+  <g opacity="0.15">
+    <line x1="0" y1="200" x2="1920" y2="-80" stroke="rgba(202,254,97,0.3)" stroke-width="0.5" />
+    <line x1="0" y1="350" x2="1920" y2="70" stroke="rgba(202,254,97,0.2)" stroke-width="0.5" />
+    <line x1="0" y1="500" x2="1920" y2="220" stroke="rgba(202,254,97,0.15)" stroke-width="0.5" />
+    <line x1="0" y1="650" x2="1920" y2="370" stroke="rgba(202,254,97,0.1)" stroke-width="0.5" />
+  </g>
+
+  <!-- Faint vertical lines -->
+  <g opacity="0.08">
+    <line x1="200" y1="0" x2="200" y2="900" stroke="rgba(255,255,255,0.15)" stroke-width="0.5" />
+    <line x1="480" y1="0" x2="480" y2="900" stroke="rgba(255,255,255,0.1)" stroke-width="0.5" />
+    <line x1="960" y1="0" x2="960" y2="900" stroke="rgba(255,255,255,0.12)" stroke-width="0.5" />
+    <line x1="1440" y1="0" x2="1440" y2="900" stroke="rgba(255,255,255,0.1)" stroke-width="0.5" />
+    <line x1="1720" y1="0" x2="1720" y2="900" stroke="rgba(255,255,255,0.08)" stroke-width="0.5" />
+  </g>
+
+  <!-- Gold ambient glow - left -->
+  <ellipse cx="300" cy="450" rx="500" ry="400" fill="rgba(202,254,97,0.02)" filter="url(#blur1)" />
+  
+  <!-- Gold ambient glow - right -->
+  <ellipse cx="1620" cy="350" rx="400" ry="350" fill="rgba(202,254,97,0.015)" filter="url(#blur1)" />
+
+  <!-- Subtle golden light streak from left -->
+  <path d="M-100,450 Q400,350 800,450" stroke="rgba(202,254,97,0.06)" stroke-width="1" fill="none" filter="url(#blur2)" />
+  
+  <!-- Very faint curve -->
+  <path d="M300,900 Q960,500 1620,900" stroke="rgba(202,254,97,0.04)" stroke-width="1" fill="none" filter="url(#blur3)" />
+
+  <!-- Tiny floating dots -->
+  <g opacity="0.3">
+    <circle cx="720" cy="280" r="1.5" fill="rgba(202,254,97,0.4)" />
+    <circle cx="1100" cy="500" r="1" fill="rgba(202,254,97,0.3)" />
+    <circle cx="480" cy="620" r="0.8" fill="rgba(255,255,255,0.2)" />
+    <circle cx="1400" cy="320" r="1.2" fill="rgba(202,254,97,0.35)" />
+    <circle cx="300" cy="300" r="0.6" fill="rgba(255,255,255,0.15)" />
+    <circle cx="1600" cy="600" r="1" fill="rgba(202,254,97,0.25)" />
+    <circle cx="850" cy="700" r="0.7" fill="rgba(255,255,255,0.1)" />
+    <circle cx="500" cy="180" r="0.5" fill="rgba(202,254,97,0.2)" />
+    <circle cx="1300" cy="650" r="0.9" fill="rgba(202,254,97,0.2)" />
+  </g>
+</svg>
