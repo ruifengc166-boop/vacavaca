@@ -246,4 +246,124 @@ button{font-family:var(--font);cursor:pointer;border:none;background:none;color:
     background: rgba(255,255,255,0.05);
   }
 }
-
+
+
+/* ===== MOBILE RESPONSIVE FIXES ===== */
+@media (max-width: 768px) {
+  body {
+    overflow-x: hidden;
+  }
+  .container {
+    padding: 0 16px;
+    max-width: 100%;
+  }
+  .hero-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .hero-grid .hero-feat {
+    grid-column: 1 / -1;
+    transform: scale(1);
+  }
+  .hero-grid .hero-item {
+    transform: none;
+    opacity: 0.9;
+    filter: none;
+  }
+  .works-grid,
+  .video-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .creator-row {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .hero {
+    padding: 120px 0 60px;
+    min-height: auto;
+  }
+  .hero-header h1 {
+    font-size: 28px;
+  }
+  .hero-header p {
+    font-size: 14px;
+  }
+  .profile-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .profile-works,
+  .creators-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .edit-layout {
+    grid-template-columns: 1fr;
+  }
+  .steps {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .creators-grid .video-card {
+    flex-direction: column;
+    text-align: center;
+  }
+  .video-modal {
+    padding: 16px;
+  }
+  .events-list .event-item > div {
+    flex-direction: column !important;
+  }
+  .events-list .event-item img {
+    width: 100% !important;
+    height: auto !important;
+    max-width: 100% !important;
+    margin-top: 16px;
+  }
+  .events-list .event-item {
+    padding: 32px 0 !important;
+  }
+  .events-list .event-item .event-date {
+    font-size: 24px !important;
+  }
+  .events-list .event-item .event-title {
+    font-size: 20px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .works-grid,
+  .video-grid {
+    grid-template-columns: 1fr;
+  }
+  .hero-grid {
+    grid-template-columns: 1fr;
+  }
+  .creator-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .hero-header h1 {
+    font-size: 24px;
+  }
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+  .steps {
+    grid-template-columns: 1fr;
+  }
+  .profile-works,
+  .creators-grid {
+    grid-template-columns: 1fr;
+  }
+  .events-list .event-item .event-date {
+    font-size: 20px !important;
+  }
+  .events-list .event-item .event-title {
+    font-size: 18px !important;
+  }
+}
