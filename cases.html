@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cases - VACAVACA Product Ad Studio</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/studio.css">
+</head>
+<body class="studio-page">
+<div class="navbar"><div class="container"><a class="logo" href="index.html"><img src="/assets/logo/nav-logo.png" alt="VACAVACA" style="height:24px;width:auto;display:block"></a><div class="nav-links"><a href="studio.html">Studio</a><a href="templates.html">Templates</a><a href="cases.html">Cases</a><a href="creator-network.html">Creator Network</a><a href="vacat.html">About</a></div><div class="nav-actions"><a href="start.html" class="btn-reg">Start Project</a></div><div class="nav-toggle"><span></span><span></span><span></span></div></div></div>
+<section class="studio-hero" style="padding-bottom:42px"><div class="container"><div class="eyebrow">Selected Cases</div><h1 class="studio-title">Visual proof before <span>commercial production</span>.</h1><p class="studio-subtitle">These works show the visual range behind VACAVACA. For commercial production, use them as references and submit a brief through Product Ad Studio.</p><div class="studio-actions"><a href="templates.html" class="btn btn-primary btn-lg">Use a Style</a><a href="start.html" class="btn btn-secondary btn-lg">Request Similar Ad</a></div></div></section>
+<section class="studio-section"><div class="container"><div class="studio-section-header"><div><h2>Selected works and visual references</h2></div><p>Cases are for credibility and inspiration. Orders are managed centrally by VACAVACA.</p></div><div class="video-grid" id="casesGrid"></div></div></section>
+<div class="footer"><div class="container"><div class="footer-grid"><div class="footer-brand"><img src="/assets/logo/nav-logo.png" alt="VACAVACA" style="height:36px;width:auto;display:block;margin-bottom:8px"><p>AI visual creator network powering product ads for global brands.</p></div><div class="footer-col"><h4>Studio</h4><a href="studio.html">Product Ad Studio</a><a href="templates.html">Templates</a><a href="start.html">Start Project</a></div><div class="footer-col"><h4>Network</h4><a href="cases.html">Cases</a><a href="creator-network.html">Creator Network</a><a href="vacat.html">About VACAVACA</a></div><div class="footer-col"><h4>Admin</h4><a href="/admin/studio.html" target="_blank">Studio Admin</a></div></div><div class="footer-bottom"><span>&copy; 2026 VACAVACA Product Ad Studio</span><span>Cases feed future templates</span></div></div></div>
+<script src="js/main.js?v=2"></script>
+<script>
+(function(){var API=window.location.origin;function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}fetch(API+'/api/works').then(function(r){return r.json()}).then(function(works){var grid=document.getElementById('casesGrid');if(!grid)return;works=(Array.isArray(works)?works:[]).slice(0,12);if(!works.length){grid.innerHTML='<div class="studio-card" style="grid-column:1/-1;text-align:center">No cases yet.</div>';return;}grid.innerHTML=works.map(function(w){var img=w.image_url?'<img src="'+esc(w.image_url)+'" alt="'+esc(w.title)+'">':'<img src="/assets/images/default-cover.png" alt="'+esc(w.title)+'">';return '<div class="video-card"><div class="thumb">'+img+'</div><div class="body"><h4>'+esc(w.title)+'</h4><div class="meta"><span>'+esc(w.creator_name||'VACAVACA')+'</span><span>'+esc(w.track||'AI Visual')+'</span></div><a href="start.html" class="btn btn-primary btn-sm" style="margin-top:12px;width:100%">Request Similar Ad</a></div></div>';}).join('');}).catch(function(){});})();
+</script>
+</body>
+</html>
