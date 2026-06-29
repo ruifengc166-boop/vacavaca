@@ -62,7 +62,7 @@ app.use(function(req, res, next) {
 });
 
 app.listen(PORT, '0.0.0.0', () => {
-  console.log('=== VACAVACA Product Ad Studio 后端已启动 ===');
+  console.log('=== VACAVACA Ad Remix Studio 后端已启动 ===');
   console.log('地址: http://localhost:' + PORT);
   console.log('管理后台: http://localhost:' + PORT + '/admin/');
   console.log('Studio后台: http://localhost:' + PORT + '/admin/studio.html');
