@@ -1,153 +1,60 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VACAVACA - AI Product Ads Powered by Award-Winning Creators</title>
+<meta name="description" content="VACAVACA is an AI visual creator network powering product ads, launch videos and social short ads for global brands.">
 <link rel="stylesheet" href="css/style.css">
-  <title>VACAT - AI视觉创作者部落 · AI视觉创意大赛官方社区</title>
-  <meta name="description" content="VACAT瓦卡奖官方社区，全球AI视觉创意大赛平台。发现AI视觉创作人才与作品，展示AI视觉技术应用创新。">
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "VACAT - AI视觉创作者部落",
-  "alternateName": "瓦卡奖",
-  "description": "全球AI视觉创意大赛VACAT瓦卡奖官方社区，展示AI视觉创作人才与AI视觉创意作品。",
-  "url": "http://localhost:3000"
-}
-</script>
-<style>body{background:#0A0A0A url('/assets/backgrounds/bg-bottom.png') no-repeat bottom center fixed;background-size:cover}</style>
+<link rel="stylesheet" href="css/studio.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"VACAVACA Product Ad Studio","description":"AI visual creator network powering product ads for global brands.","url":"http://localhost:3000"}</script>
 </head>
-<body>
-<div class="navbar"><div class="container"><a class="logo" href="index.html"><img src="/assets/logo/nav-logo.png" alt="VACAT" style="height:24px;width:auto;display:block;vertical-align:middle"></a><div class="nav-links"><a href="index.html">发现</a><a href="creators.html">创作人</a><a href="works.html">作品</a><a href="vacat.html">瓦卡奖</a><a href="events.html">活动</a><a href="referral.html">引荐</a></div><div class="nav-actions"><a href="login.html" class="btn-nav">登录</a><a href="register.html" class="btn-reg">注册</a></div><div class="nav-toggle"><span></span><span></span><span></span></div></div></div>
-<section class="hero">
-  <div class="hero-bg" data-c-bg="home.hero_bg_image"></div>
+<body class="studio-page">
+<div class="navbar"><div class="container"><a class="logo" href="index.html"><img src="/assets/logo/nav-logo.png" alt="VACAVACA" style="height:24px;width:auto;display:block"></a><div class="nav-links"><a href="studio.html">Studio</a><a href="templates.html">Templates</a><a href="cases.html">Cases</a><a href="creator-network.html">Creator Network</a><a href="vacat.html">About</a></div><div class="nav-actions"><a href="start.html" class="btn-reg">Start Project</a></div><div class="nav-toggle"><span></span><span></span><span></span></div></div></div>
+
+<section class="studio-hero">
   <div class="container">
-    <div class="hero-header">
-      <div class="badge"><img src="/assets/logo/hero-badge-logo.png" alt="VACAT" style="width:160px;height:auto;vertical-align:middle"></div>
-      <h1 data-c="home.hero_title">AI视觉创作者<span style="color:var(--gold)">部落</span></h1>
-      <p data-c="home.hero_subtitle">瓦卡奖VACAT官方社区 · 第二届大赛4,646件投稿 · 76组入围 · 92所高校参与</p>
+    <div class="eyebrow">VACAVACA × Product Ad Studio</div>
+    <h1 class="studio-title">AI product ads powered by <span>award-winning creators.</span></h1>
+    <p class="studio-subtitle">VACAVACA turns its AI visual creator network and VACAT award credibility into a managed production studio for product brands, launch videos and social short ads.</p>
+    <div class="studio-actions"><a href="start.html" class="btn btn-primary btn-lg">Start a Project</a><a href="templates.html" class="btn btn-secondary btn-lg">View Templates</a></div>
+    <div class="studio-stat-row">
+      <div class="studio-stat"><strong>4,646</strong><span>VACAT submitted works</span></div>
+      <div class="studio-stat"><strong>76</strong><span>Selected award works</span></div>
+      <div class="studio-stat"><strong>92</strong><span>Participating schools</span></div>
+      <div class="studio-stat"><strong>24h</strong><span>Brief review target</span></div>
     </div>
-    <div style="display:flex;justify-content:center;gap:52px;margin:40px 0 60px;flex-wrap:wrap">
-  <div style="text-align:center"><div data-c="home.stats_works" style="font-size:36px;font-weight:700;color:#cafe61">4,646</div><div data-c="home.stats_works_label" style="font-size:12px;color:var(--text2)">第二届投稿作品</div></div>
-  <div style="text-align:center"><div data-c="home.stats_finalists" style="font-size:36px;font-weight:700;color:#cafe61">76</div><div data-c="home.stats_finalists_label" style="font-size:12px;color:var(--text2)">获奖作品</div></div>
-  <div style="text-align:center"><div data-c="home.stats_schools" style="font-size:36px;font-weight:700;color:#cafe61">92</div><div data-c="home.stats_schools_label" style="font-size:12px;color:var(--text2)">参赛高校</div></div>
-</div>
-    <div class="hero-grid" id="hero-works"></div>
   </div>
 </section>
-<div class="container">
-  <div class="section">
-    <div class="section-header"><h2 data-c="home.section_works_title">获奖作品</h2><a href="works.html" class="more">浏览全部 →</a></div>
-    <div class="video-grid" id="home-works-grid"></div>
+
+<section class="studio-section"><div class="container">
+  <div class="studio-section-header"><div><div class="eyebrow">Main Flow</div><h2>From trust to brief, not marketplace bidding.</h2></div><p>VACAVACA builds confidence through cases and creator network. Product Ad Studio converts that confidence into managed orders.</p></div>
+  <div class="studio-grid">
+    <div class="studio-card"><h3>1. Explore visual proof</h3><p>Review selected cases, creator network and VACAT background to understand the visual capability behind the studio.</p></div>
+    <div class="studio-card"><h3>2. Choose a style</h3><p>Browse reusable ad templates and pick a direction that matches your product, platform and target market.</p></div>
+    <div class="studio-card"><h3>3. Submit a brief</h3><p>Send product assets and requirements. VACAVACA manages quote, production, polish and delivery.</p></div>
   </div>
-  <div class="section" style="margin-top:160px">
-    <div class="section-header"><h2 data-c="home.section_creators_title">推荐创作人</h2><a href="creators.html" class="more">浏览全部 →</a></div>
-    <div class="creator-row" id="home-creators"></div>
-  </div>
-  <div class="section" style="text-align:center;padding:60px 0;border-top:1px solid var(--border)">
-    <h2 style="font-size:24px;font-weight:700;margin-bottom:8px" data-c="home.cta_title">你是AI视觉创作者？</h2>
-    <p style="color:var(--text3);margin-bottom:20px" data-c="home.cta_text">加入部落，让你的作品被企业发现</p>
-    <a href="register.html" class="btn btn-primary btn-lg">立即创建你的创作者主页</a>
-  </div>
-</div>
-<div class="footer"><div class="container"><div class="footer-grid"><div class="footer-brand"><img src="/assets/logo/nav-logo.png" alt="VACAT" style="height:36px;width:auto;display:block;margin-bottom:8px"><p>AI视觉创作者部落 · 瓦卡奖组委会支持的社区平台</p><p style="font-size:12px;color:var(--text3);margin-top:8px"></p></div><div class="footer-col"><h4>发现</h4><a href="creators.html">创作人</a><a href="works.html">作品</a><a href="events.html">活动</a></div><div class="footer-col"><h4>关于</h4><a href="vacat.html">瓦卡奖</a><a href="about.html">关于我们</a><a href="referral.html">引荐</a></div><div class="footer-col"><h4>支持</h4><a href="#">联系方式</a><a href="referral.html">FAQ</a><a href="register.html">注册</a><a href="/admin/" target="_blank">后台</a></div></div><div class="footer-bottom"><span>&copy; 2026 AI视觉创作者部落 · 瓦卡奖VACAT</span><span>沪ICP备XXXXXXXX号</span></div></div></div>
-<script src="js/content-loader.js?v=2"></script>
+</div></section>
+
+<section class="studio-section"><div class="container">
+  <div class="studio-section-header"><div><div class="eyebrow">Templates</div><h2>Start with a commercial visual direction</h2></div><a href="templates.html" class="btn btn-gold">All Templates</a></div>
+  <div class="template-grid" id="featuredTemplates"></div>
+</div></section>
+
+<section class="studio-section"><div class="container">
+  <div class="studio-section-header"><div><div class="eyebrow">Cases</div><h2>Selected visual cases</h2></div><a href="cases.html" class="btn btn-gold">View Cases</a></div>
+  <div class="video-grid" id="home-works-grid"></div>
+</div></section>
+
+<section class="studio-section"><div class="container">
+  <div class="studio-section-header"><div><div class="eyebrow">Creator Network</div><h2>Creative supply chain behind one studio</h2></div><a href="creator-network.html" class="btn btn-gold">View Network</a></div>
+  <div class="creator-row" id="home-creators"></div>
+</div></section>
+
+<section class="studio-section"><div class="container"><div class="studio-card" style="text-align:center;padding:46px"><h2 style="font-size:32px;margin-bottom:10px">Brief your product. We will recommend the right AI ad direction.</h2><p style="max-width:680px;margin:0 auto 22px">This is not an open creator marketplace. VACAVACA receives your brief and manages production through its creator network.</p><a href="start.html" class="btn btn-primary btn-lg">Start Your Product Ad</a></div></div></section>
+
+<div class="footer"><div class="container"><div class="footer-grid"><div class="footer-brand"><img src="/assets/logo/nav-logo.png" alt="VACAVACA" style="height:36px;width:auto;display:block;margin-bottom:8px"><p>AI visual creator network powering product ads for global brands.</p></div><div class="footer-col"><h4>Studio</h4><a href="studio.html">Product Ad Studio</a><a href="templates.html">Templates</a><a href="start.html">Start Project</a></div><div class="footer-col"><h4>Network</h4><a href="cases.html">Cases</a><a href="creator-network.html">Creator Network</a><a href="vacat.html">About VACAVACA</a></div><div class="footer-col"><h4>Admin</h4><a href="/admin/" target="_blank">CMS</a><a href="/admin/studio.html" target="_blank">Studio Admin</a></div></div><div class="footer-bottom"><span>&copy; 2026 VACAVACA Product Ad Studio</span><span>沪ICP备XXXXXXXX号</span></div></div></div>
 <script src="js/main.js?v=2"></script>
-<!-- 悬浮浮窗 -->
-<div class="float-recruit" id="floatRecruit">
-  <div class="float-recruit-inner">
-    <span class="float-recruit-icon">👋</span>
-    <span class="float-recruit-text">AI精品短剧创作营招募🔥</span>
-  </div>
-</div>
-
-<script>
-(function(){
-  var el = document.getElementById('floatRecruit');
-  if (!el) return;
-  // Restore saved position
-  var saved = localStorage.getItem('vacavaca_float_pos');
-  if (saved) {
-    var pos = JSON.parse(saved);
-    el.style.right = pos.right;
-    el.style.bottom = pos.bottom;
-  }
-  var startX, startY, origRight, origBottom, isDragging = false, moved = false;
-  function onStart(e){
-    var touch = e.touches ? e.touches[0] : e;
-    startX = touch.clientX;
-    startY = touch.clientY;
-    var rect = el.getBoundingClientRect();
-    // Convert current position from viewport to readable values
-    origRight = (window.innerWidth - rect.right);
-    origBottom = (window.innerHeight - rect.bottom);
-    el.style.transition = 'none';
-    isDragging = true;
-    moved = false;
-    e.preventDefault();
-  }
-  function onMove(e){
-    if (!isDragging) return;
-    var touch = e.touches ? e.touches[0] : e;
-    var dx = startX - touch.clientX;
-    var dy = startY - touch.clientY;
-    if (Math.abs(dx) > 3 || Math.abs(dy) > 3) moved = true;
-    var newRight = Math.max(0, origRight + dx);
-    var newBottom = Math.max(0, origBottom - dy);
-    el.style.right = newRight + 'px';
-    el.style.bottom = newBottom + 'px';
-    el.style.top = 'auto';
-    el.style.transform = 'none';
-    e.preventDefault();
-  }
-  function onEnd(){
-    if (!isDragging) return;
-    isDragging = false;
-    el.style.transition = '';
-    if (moved) {
-      localStorage.setItem('vacavaca_float_pos', JSON.stringify({
-        right: el.style.right,
-        bottom: el.style.bottom
-      }));
-    } else {
-      window.open('/apply','_blank');
-    }
-  }
-  el.addEventListener('mousedown', onStart);
-  window.addEventListener('mousemove', onMove);
-  window.addEventListener('mouseup', onEnd);
-  el.addEventListener('touchstart', onStart, {passive:false});
-  window.addEventListener('touchmove', onMove, {passive:false});
-  window.addEventListener('touchend', onEnd);
-})();
-</script>
-
-<!-- 首页视差微动效 -->
-<style>
-.hero{overflow:hidden}
-.hero-bg{transition:transform 0.08s ease-out;will-change:transform}
-</style>
-<script>
-(function(){
-  var hero = document.querySelector('.hero');
-  var bg = document.querySelector('.hero-bg');
-  if (!hero || !bg) return;
-  var maxMove = 20;
-  hero.addEventListener('mousemove', function(e){
-    var rect = hero.getBoundingClientRect();
-    var x = (e.clientX - rect.left) / rect.width;
-    var y = (e.clientY - rect.top) / rect.height;
-    var moveX = (0.5 - x) * maxMove;
-    var moveY = (0.5 - y) * maxMove;
-    bg.style.transform = 'translate(' + moveX.toFixed(1) + 'px, ' + moveY.toFixed(1) + 'px)';
-  });
-  hero.addEventListener('mouseleave', function(){
-    bg.style.transform = 'translate(0, 0)';
-  });
-})();
-</script>
-
+<script src="js/templates.js"></script>
 </body>
 </html>
-
