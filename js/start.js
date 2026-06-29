@@ -61,7 +61,7 @@ if(form) form.addEventListener('submit', async function(e){
     var d = await fetch(API + '/api/orders', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body)}).then(function(r){return r.json()});
     if(d.success){
       form.reset();
-      if(status){status.style.display='block';status.innerHTML='Your brief has been submitted. Our team will review it and contact you within 24 hours. Brief ID: <strong>#'+d.id+'</strong>';}
+      if(status){status.style.display='block';status.innerHTML='Your Ad Remix Studio brief has been submitted. Our team will review it and contact you within 24 hours. Brief ID: <strong>#'+d.id+'</strong>';}
       window.scrollTo({top:0,behavior:'smooth'});
     } else throw new Error(d.error || 'Submit failed');
   }catch(err){
