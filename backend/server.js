@@ -6,6 +6,8 @@ const referralsRouter = require('./routes/referrals');
 const adminRouter = require('./routes/admin');
 const worksRouter = require('./routes/works');
 const contentRouter = require('./routes/content');
+const templatesRouter = require('./routes/templates');
+const ordersRouter = require('./routes/orders');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -26,11 +28,13 @@ app.use((req, res, next) => {
 // 接口限流
 const rateLimiter = require('./routes/rate-limit');
 app.use('/api/', rateLimiter({ windowMs: 60000, max: 120 }));
-app.use(express.json());
+app.use(express.json({ limit: '2mb' }));
 app.use('/api', usersRouter);
 app.use('/api/creators', creatorsRouter);
 app.use('/api/works', worksRouter);
 app.use('/api/referrals', referralsRouter);
+app.use('/api/templates', templatesRouter);
+app.use('/api/orders', ordersRouter);
 app.use('/api', adminRouter);
 app.use('/api/content', contentRouter);
 app.use(express.static(path.join(__dirname, '..'), { maxAge: 0, etag: true, lastModified: true }));
@@ -58,7 +62,8 @@ app.use(function(req, res, next) {
 });
 
 app.listen(PORT, '0.0.0.0', () => {
-  console.log('=== AI视觉创作者部落 后端已启动 ===');
+  console.log('=== VACAVACA Product Ad Studio 后端已启动 ===');
   console.log('地址: http://localhost:' + PORT);
   console.log('管理后台: http://localhost:' + PORT + '/admin/');
+  console.log('Studio后台: http://localhost:' + PORT + '/admin/studio.html');
 });
