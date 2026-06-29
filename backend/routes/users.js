@@ -104,4 +104,4 @@ router.put('/profile', auth, (req, res) => {
   res.json({ success: true });
 });
 
-module.exports = { router, auth };
+module.exports = { router, auth, verifyToken };
